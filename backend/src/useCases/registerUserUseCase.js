@@ -1,10 +1,15 @@
 import userService from "../services/userService.js";
+import passwordService from "../services/passwordService.js";
 
 export async function registerUser(email, password) {
   const exists = await userService.findByEmail(email);
   if (exists) throw new Error("User already exists");
-  const result = await userService.createUser(email, password);
-  return result;
+  const hashedPassword = await passwordService.hashPassword(password)
+  const user = await userService.createUser(email, hashedPassword);
+  return {
+        id: user._id,
+        email: user.email
+    }
 }
 
 // import videoService from "../videos.feature/videoService";

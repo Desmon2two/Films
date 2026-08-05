@@ -1,4 +1,4 @@
-import registerUserUseCase from "../useCases/registerUserUseCase.js"
+import {registerUser as registerUserUseCase} from "../useCases/registerUserUseCase.js"
 
 async function registerUser(req, res, next){
   try {

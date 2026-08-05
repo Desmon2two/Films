@@ -5,8 +5,8 @@ async function findByEmail(email){
     return await userModel.findByEmail(email);
 }
 async function createUser(email, password){
-    const result = await userModel.createUser(email, password);
-    return result
+    const user = await userModel.createUser(email, password);
+    return user
 }
 
 
