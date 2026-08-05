@@ -1,0 +1,23 @@
+{
+  "name": "gptfilmswebsite",
+  "version": "1.0.0",
+  "description": "\"The films website i am creating while learning with chatGPT mentor mode\"",
+  "keywords": [
+    "learning"
+  ],
+  "license": "ISC",
+  "author": "Alexa",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "node src/server.js",
+    "debug": "node --watch src/server.js"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}
