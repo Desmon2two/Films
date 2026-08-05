@@ -19,6 +19,13 @@ async function findByEmail(email){
     // const user = users.find(user => user.email === userEmail);
     return user || null
 };
+
+async function findById(userId){
+    const user = await User.findOne({
+        _id: userId
+    })
+    return user || null
+}
 async function createUser(email, password){
     const newUser = await User.create({
         email,
@@ -31,4 +38,4 @@ async function createUser(email, password){
 // users.push(newUser);
 
 
-export default {findByEmail, createUser}
+export default {findByEmail, findById, createUser}

@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 dotenv.config({ path: "../.env", debug: true });
 const PORT = process.env.PORT || 3000;
 import connectDatabase from "./database/connectDatabase.js";
-import authRoute from "./routes/authRouter.js";
+import authRoute from "./authFeature/authRouter.js";
+import videoRoute from "./videoFeature/videoRouter.js"
 import errorHandler from "../errors/errorMiddleware.js"
 
 // MIDDLEWARE
@@ -12,6 +13,7 @@ app.use(express.json())
 
 // MOUNTING ROUTERS
 app.use("/auth", authRoute);
+app.use("/videos", videoRoute);
 
 app.get("/", (req, res) => {
   res.send("Everything works, right?");

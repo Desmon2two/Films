@@ -1,6 +1,6 @@
-import userService from "../services/userService.js";
-import passwordService from "../services/passwordService.js";
-import authService from "../services/authService.js";
+import userService from "../userFeature/userService.js";
+import passwordService from "../authFeature/passwordService.js";
+import authService from "../authFeature/authService.js";
 
 export async function registerUser(email, password) {
   const exists = await userService.findByEmail(email);
@@ -13,6 +13,6 @@ export async function registerUser(email, password) {
       id: user._id,
       email: user.email,
     },
-    token
+    token,
   };
 }
