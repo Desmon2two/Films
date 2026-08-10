@@ -24,7 +24,7 @@ async function getVideo(req, res, next) {
 }
 async function showVideos(req, res, next) {
 	try {
-		const {page, limit} = req.query
+		const { page, limit } = req.query;
 		const result = await videoUseCase.showVideos(page, limit);
 		res.status(200).json(result);
 	} catch (error) {
@@ -32,4 +32,8 @@ async function showVideos(req, res, next) {
 	}
 }
 
-export default { postVideo, getVideo };
+export default {
+	postVideo,
+	getVideo,
+	showVideos,
+};

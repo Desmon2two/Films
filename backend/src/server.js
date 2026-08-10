@@ -5,28 +5,28 @@ dotenv.config({ path: "../.env", debug: true });
 const PORT = process.env.PORT || 3000;
 import connectDatabase from "./database/connectDatabase.js";
 import authRoute from "./authFeature/authRouter.js";
-import videoRoute from "./videoFeature/videoRouter.js"
-import errorHandler from "../errors/errorMiddleware.js"
+import videoRoute from "./videoFeature/videoRouter.js";
+import errorHandler from "../middlewears/errorMiddleware.js";
 
 // MIDDLEWARE
-app.use(express.json())
+app.use(express.json());
 
 // MOUNTING ROUTERS
 app.use("/auth", authRoute);
 app.use("/videos", videoRoute);
 
 app.get("/", (req, res) => {
-  res.send("Everything works, right?");
+	res.send("Everything works, right?");
 });
 
 // ERROR HANDLER
-app.use(errorHandler)
+app.use(errorHandler);
 
 // DATABASE THEN SERVER START
 connectDatabase()
-.then(()=>{
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-})
-.catch(error=>console.error(error))
+	.then(() => {
+		app.listen(PORT, () => {
+			console.log(`Server is running on port ${PORT}`);
+		});
+	})
+	.catch((error) => console.error(error));

@@ -39,5 +39,8 @@ async function get(videoId) {
 async function getVideos(offset, limit) {
 	return Video.find().sort({ createdAt: -1 }).skip(offset).limit(limit);
 }
+async function countVideos() {
+	return Video.countDocuments();
+}
 
-export default { post, get };
+export default { post, get, getVideos, countVideos };

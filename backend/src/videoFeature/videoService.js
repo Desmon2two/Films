@@ -12,5 +12,9 @@ async function showVideos(offset, limit) {
 	const videos = await videoModel.getVideos(offset, limit);
 	return videos;
 }
+async function countVideos() {
+	const count = await videoModel.countVideos();
+	return count;
+}
 
-export default { create, get, showVideos };
+export default { create, get, showVideos, countVideos };
