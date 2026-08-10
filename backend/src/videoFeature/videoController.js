@@ -24,8 +24,7 @@ async function getVideo(req, res, next) {
 }
 async function showVideos(req, res, next) {
 	try {
-		const page = parseInt(req.query.page);
-		const limit = parseInt(req.query.limit);
+		const {page, limit} = req.query
 		const result = await videoUseCase.showVideos(page, limit);
 		res.status(200).json(result);
 	} catch (error) {
