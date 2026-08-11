@@ -1,5 +1,5 @@
 import userService from "../userFeature/userService.js";
-import { validateVideoId } from "../utility/validateId.js";
+import { validateVideoId } from "../infrastructure/database/mongoDB/validateId.js";
 import videoService from "../videoFeature/videoService.js";
 import { NotFoundError } from "../errors/notFoundError.js";
 import { ValidationError } from "../errors/validationError.js";
