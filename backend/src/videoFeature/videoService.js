@@ -16,5 +16,9 @@ async function countVideos() {
 	const count = await videoModel.countVideos();
 	return count;
 }
+async function deleteVideo(videoId) {
+	const isDeleted = await videoModel.deleteVideo(videoId);
+	return isDeleted;
+}
 
-export default { create, get, showVideos, countVideos };
+export default { create, get, showVideos, countVideos, deleteVideo };

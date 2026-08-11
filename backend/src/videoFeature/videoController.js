@@ -15,9 +15,19 @@ async function postVideo(req, res, next) {
 }
 async function getVideo(req, res, next) {
 	try {
-		const videoId = req.params.id;
+		const {videoId} = req.params;
 		const result = await videoUseCase.getVideo(videoId);
 		res.status(200).json(result);
+	} catch (error) {
+		next(error);
+	}
+}
+async function deleteVideo(req, res, next) {
+	try {
+		const {videoId} = req.params;
+		const {userId} = req.user;
+		await videoUseCase.deleteVideo(videoId, userId);
+		res.status(204).send();
 	} catch (error) {
 		next(error);
 	}
@@ -36,4 +46,5 @@ export default {
 	postVideo,
 	getVideo,
 	showVideos,
+	deleteVideo
 };
