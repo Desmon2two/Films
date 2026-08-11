@@ -38,6 +38,10 @@ function get(videoId) {
 function deleteVideo(videoId) {
   return Video.deleteOne({ _id: videoId });
 }
+function deleteByUser(userId, context) {
+  const options = context ? {session: context.session} : {}
+	return Video.deleteMany({ creatorId: userId }, options);
+}
 function getVideos(offset, limit) {
   return Video.find().sort({ createdAt: -1 }).skip(offset).limit(limit);
 }
@@ -45,4 +49,4 @@ function countVideos() {
   return Video.countDocuments();
 }
 
-export default { post, get, getVideos, countVideos, deleteVideo };
+export default { post, get, getVideos, countVideos, deleteVideo, deleteByUser };

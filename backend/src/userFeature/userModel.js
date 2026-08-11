@@ -26,6 +26,12 @@ async function findById(userId){
     })
     return user || null
 }
+async function deleteById(userId, context) {
+    const options = context ? { session: context.session } : {};
+	return await User.deleteOne({
+		_id: userId,
+	}, options)
+}
 async function createUser(email, password){
     const newUser = await User.create({
         email,
@@ -38,4 +44,4 @@ async function createUser(email, password){
 // users.push(newUser);
 
 
-export default {findByEmail, findById, createUser}
+export default { findByEmail, findById, createUser, deleteById };

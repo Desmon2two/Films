@@ -20,5 +20,16 @@ async function deleteVideo(videoId) {
 	const isDeleted = await videoModel.deleteVideo(videoId);
 	return isDeleted;
 }
+async function deleteByUser(userId, context) {
+	const isDeleted = await videoModel.deleteByUser(userId, context);
+	return isDeleted;
+}
 
-export default { create, get, showVideos, countVideos, deleteVideo };
+export default {
+	create,
+	get,
+	showVideos,
+	countVideos,
+	deleteVideo,
+	deleteByUser,
+};

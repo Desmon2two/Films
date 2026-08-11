@@ -7,10 +7,13 @@ async function findByEmail(email){
 async function findById(userId){
     return await userModel.findById(userId)
 }
+async function deleteById(userId, context) {
+	return await userModel.deleteById(userId, context);
+}
 async function createUser(email, password){
     const user = await userModel.createUser(email, password);
     return user
 }
 
 
-export default {findByEmail, createUser, findById}
+export default { findByEmail, createUser, findById, deleteById };
