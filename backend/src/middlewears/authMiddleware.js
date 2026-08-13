@@ -1,14 +1,14 @@
-import authService from "../src/authFeature/authService.js";
+import authService from "../authFeature/authService.js";
+import { UnauthorizedError } from "../errors/unauthorizedError.js";
 
 function authenticate(req, res, next) {
 	try {
 		const { authorization } = req.headers;
-		if (!authorization)
-			return res.status(401).json({ message: "Authentication required" });
+		if (!authorization) throw new UnauthorizedError("Authentication required");
 		if (!authorization.startsWith("Bearer "))
-			return res.status(401).json({ message: "Invalid authentication format" });
+			throw new UnauthorizedError("Invalid authentication format");
 		const token = authorization.slice(7);
-		const user = authService.verifyToken(token);
+		const user = authService.verifyAccessToken(token);
 		req.user = user;
 		next();
 	} catch (error) {

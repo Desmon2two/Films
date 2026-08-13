@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 import connectDatabase from "./database/connectDatabase.js";
 import authRoute from "./authFeature/authRouter.js";
 import videoRoute from "./videoFeature/videoRouter.js";
-import errorHandler from "../middlewears/errorMiddleware.js";
+import errorHandler from "./middlewears/errorMiddleware.js";
 
 // MIDDLEWARE
 app.use(express.json());
