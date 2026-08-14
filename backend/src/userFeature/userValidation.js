@@ -38,4 +38,35 @@ if(userData.bio !== undefined){
 }
   return
 }
-export default validateUserPatch;
+function validateCredentialsPatch(userData) {
+    const objectFields = Object.getOwnPropertyNames(userData);
+    if (objectFields.length === 0) throw new ValidationError("Nothing to update");
+    const allowedFields = ["email", "password"];
+    const isAllowed = objectFields.every((field) =>
+        allowedFields.includes(field),
+);
+if (!isAllowed) throw new ValidationError("Invalid profile field");
+const {email, password} = userData
+if(email !== undefined){
+    if (
+        typeof email !== "string" ||
+        email.length < 1 ||
+        email.length > 25 ||
+        (!email.includes("@gmail.com") &&
+        !email.includes("@yahoo.com") &&
+        !email.includes("@yandex.ru") &&
+        !email.includes("@mail.ru"))
+    )
+    throw new ValidationError("Invalid email");
+}
+if(password !== undefined){
+    if (
+        typeof password !== "string" ||
+        password.length < 6 ||
+        password.length > 25
+    )
+    throw new ValidationError("Invalid password");
+}
+  return
+}
+export default { validateUserPatch, validateCredentialsPatch };

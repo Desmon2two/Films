@@ -20,4 +20,10 @@ async function patchOne(userId, newData){
 }
 
 
-export default { findByEmail, createUser, findById, deleteById, patchOne };
+export default {
+	findByEmail,
+	createUser,
+	findById,
+	deleteById,
+	patchOne,
+};
