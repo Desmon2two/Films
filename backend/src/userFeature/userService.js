@@ -14,6 +14,10 @@ async function createUser(email, password){
     const user = await userModel.createUser(email, password);
     return user
 }
+async function patchOne(userId, newData){
+    const result = await userModel.patchUser(userId, newData);
+    return result
+}
 
 
-export default { findByEmail, createUser, findById, deleteById };
+export default { findByEmail, createUser, findById, deleteById, patchOne };

@@ -36,5 +36,24 @@ async function deleteUser(req, res, next) {
 		next(error);
 	}
 }
+async function getCurrentUser(req, res, next) {
+	try {
+		const { userId } = req.user;
+		const result = await userUseCase.getCurrentUser(userId);
+		res.status(200).json(result);
+	} catch (error) {
+		next(error);
+	}
+}
+async function patchUser(req, res, next) {
+	try {
+		const { userId } = req.user;
+		const userData = req.body;
+		const result = await userUseCase.patchUser(userId, userData);
+		res.status(200).json(result);
+	} catch (error) {
+		next(error);
+	}
+}
 
-export default { registerUser, deleteUser, loginUser, refreshToken };
+export default { registerUser, deleteUser, loginUser, refreshToken, getCurrentUser, patchUser };

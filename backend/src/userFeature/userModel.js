@@ -1,47 +1,53 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
-    email:{
-        type: String,
-        required: true,
-        unique: true,
-    },
-    password:{
-        type: String,
-        required: true
-    }
-})
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
 const User = mongoose.model("User", userSchema);
 
-async function findByEmail(email){
-    const user = await User.findOne({
-        email: email
-    })
-    // const user = users.find(user => user.email === userEmail);
-    return user || null
-};
+async function findByEmail(email) {
+  const user = await User.findOne({
+    email: email,
+  });
+  // const user = users.find(user => user.email === userEmail);
+  return user || null;
+}
 
-async function findById(userId){
-    const user = await User.findOne({
-        _id: userId
-    })
-    return user || null
+async function findById(userId) {
+  const user = await User.findOne({
+    _id: userId,
+  });
+  return user || null;
 }
 async function deleteById(userId, context) {
-    const options = context ? { session: context.session } : {};
-	return await User.deleteOne({
-		_id: userId,
-	}, options)
+  const options = context ? { session: context.session } : {};
+  return User.deleteOne(
+    {
+      _id: userId,
+    },
+    options,
+  );
 }
-async function createUser(email, password){
-    const newUser = await User.create({
-        email,
-        password
-    })
-    return newUser
-};
+function createUser(email, password) {
+  return User.create({
+    email,
+    password,
+  });
+  
+}
+function patchUser(userId, newData) {
+  return User.findOneAndUpdate(
+    { _id: userId },
+    { $set: newData },
+    { new: true },
+  )
+}
 
-// const newUser = {id: crypto.randomUUID() ,email: userEmail, password: userPassword}
-// users.push(newUser);
-
-
-export default { findByEmail, findById, createUser, deleteById };
+export default { findByEmail, findById, createUser, deleteById, patchUser };
