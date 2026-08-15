@@ -68,8 +68,8 @@ async function patchUserPassword(req, res, next) {
 async function patchUserEmail(req, res, next) {
 	try {
 		const { userId } = req.user;
-		const { newEmail, password } = req.body;
-		await userUseCase.patchUserEmail(userId, password, newEmail);
+		const { email, password } = req.body;
+		await userUseCase.patchUserEmail(userId, password, email);
 		res.status(200).json({ message: "Email changed" });
 	} catch (error) {
 		next(error);
