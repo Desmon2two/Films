@@ -1,5 +1,6 @@
-import Greeting from "./assets/Greeting";
-import Button from "./assets/ButtonCount";
+import Greeting from "./components/Greeting";
+import Button from "./components/ButtonCount";
+import SearchBar from "./components/Search";
 
 export default function App() {
   return (
@@ -7,6 +8,7 @@ export default function App() {
       <h1>Hello World</h1>
       <Greeting name="Tito"></Greeting>
       <Button></Button>
+      <SearchBar></SearchBar>
     </section>
   );
 }
