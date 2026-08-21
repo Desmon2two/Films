@@ -11,10 +11,10 @@ export default function VideoCard({
     <div
       className="videoCard"
     >
-      <img
+      {/* <img
         src={coverURL}
         className="videoCard__cover"
-      />
+      /> */}
       <h2 className="videoCard__title">{title}</h2>
       <p className="videoCard__description">{description}</p>
       <p className="videoCard__year">{year}</p>

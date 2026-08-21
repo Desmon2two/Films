@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import type Video from "../types/VideoType";
 import VideoCard from "./VideoCard";
+import { fetchVideos } from "../api/videos";
 
 export default function VideoGrid() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [status, setStatus] = useState("loading");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<object | null>(null);
 
   useEffect(() => {
     async function loadVideos() {
       try {
         setStatus("loading");
-        const result = await fetchVideos("/videos");
-        setVideos(result);
+        const result = await fetchVideos('http://localhost:5500/videos');
+        setVideos(result.videos);
         setStatus("success");
       } catch (error: any) {
         setError(error);
@@ -39,5 +40,10 @@ export default function VideoGrid() {
         ))}
       </div>
     );
-  if (error) return <>{error}</>;
+  if (error)
+    return (
+      <>
+        <p>{error.message}</p>
+      </>
+    );
 }

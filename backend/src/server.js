@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import cors from "cors"
 import express from "express";
 const app = express();
 dotenv.config({ path: "../.env", debug: true });
@@ -10,6 +11,9 @@ import errorHandler from "./middlewears/errorMiddleware.js";
 
 // MIDDLEWARE
 app.use(express.json());
+app.use(cors({
+	origin: "http://localhost:5173"
+}))
 
 // MOUNTING ROUTERS
 app.use("/auth", authRoute);
