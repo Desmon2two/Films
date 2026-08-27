@@ -1,4 +1,4 @@
-import type Video from "../types/VideoType";
+import type { VideoCardProps } from "../types/VIdeoCardPropsType";
 
 export default function VideoCard({
   id,
@@ -6,10 +6,12 @@ export default function VideoCard({
   title,
   description,
   year,
-}: Video) {
+  onAction
+}: VideoCardProps, ) {
   return (
     <div
       className="videoCard"
+      onClick={onAction}
     >
       {/* <img
         src={coverURL}

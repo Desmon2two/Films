@@ -1,4 +1,4 @@
-export type RequestStateType =
+export type RequestStateType<T> =
   | { status: "loading" }
-  | { status: "success" }
+  | { status: "success"; data: T }
   | { status: "failure"; error: Error };

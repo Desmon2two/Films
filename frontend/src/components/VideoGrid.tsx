@@ -1,36 +1,23 @@
-import { useEffect, useState } from "react";
-import type Video from "../types/VideoType";
+import { useState } from "react";
 import VideoCard from "./VideoCard";
 import { fetchVideos } from "../api/videos";
 import PaginationNavigation from "./PaginationNavigation";
-import type { RequestStateType } from "../types/RequestStateType";
-
-function normalizeError(error:unknown):Error{
-  if(error instanceof Error) return error
-  return new Error(String(error))
-}
+import { useNavigate } from "react-router-dom";
+import type VideoResponse from "../types/VideoResponseType";
+import useRequest from "../hooks/useRequest";
 
 export default function VideoGrid() {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [requestState, setRequestState] = useState<RequestStateType>({status: "loading"});
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(20);
-  const [totalPages, setTotalPages] = useState<number>(0);
 
-  useEffect(() => {
-    async function loadVideos() {
-      try {
-      setRequestState({status: "loading"});
-        const result = await fetchVideos(page, limit);
-        setVideos(result.videos);
-        setTotalPages(result.pagination.totalPages);
-        setRequestState({status: "success"});
-      } catch (error) {
-        setRequestState({status: "failure", error: normalizeError(error)});
-      }
-    }
-    loadVideos();
-  }, [page, limit]);
+  const navigate = useNavigate();
+  function handleClick(id: string) {
+    navigate(`/videos/${id}`);
+  }
+  const requestState = useRequest<VideoResponse>(
+    () => fetchVideos(page, limit),
+    [page, limit],
+  );
 
   if (requestState.status === "loading")
     return (
@@ -41,18 +28,28 @@ export default function VideoGrid() {
   if (requestState.status === "success")
     return (
       <div className="videoGrid">
-        <input type="text" value="20" placeholder="Set the current limit" onChange={element => setLimit(element.target.value)} />
-        {videos.map((video) => (
+        <p>Set how many videos should display on one screen</p>
+        <input
+          type="text"
+          value={limit}
+          onChange={(element) => {
+            const val = Number(element.target.value);
+            if (Number.isNaN(val)) throw new Error("Invalid input");
+            setLimit(val);
+          }}
+        />
+        {requestState.data.videos.map((video) => (
           <VideoCard
             {...video}
             key={video.id}
+            onAction={() => handleClick(video.id)}
           />
         ))}
         <PaginationNavigation
-          page={page}
-          totalPages={totalPages}
-          onNext={() => setPage(page + 1)}
-          onPrevious={() => setPage(page - 1)}
+          page={requestState.data.pagination.page}
+          totalPages={requestState.data.pagination.totalPages}
+          onNext={() => setPage((previous) => previous + 1)}
+          onPrevious={() => setPage((previous) => previous - 1)}
         />
       </div>
     );
