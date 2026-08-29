@@ -1,10 +1,26 @@
-import { useState } from "react";
-import type { AuthState } from "./AuthTypes";
+import { useEffect, useState, type PropsWithChildren } from "react";
+import { AuthContext } from "./context";
+import { getUserFromSession } from "./checkUser";
+import { type AuthState } from "./AuthTypes";
 
-export default async function AuthProvider() {
-    const [status, setStatus] = useState<AuthState>({status: 'unknown'})
-    const response = await fetch(import.meta.env.VITE_SERVER_URL + `/auth/me`);
-        const data = await response.json();
-        if(data.status === 401) setStatus({status: 'loggedOut'})
-        if(data.status === 200) setStatus({status: 'loggedIn', user: data.user})
+export function AuthProvider({ children }: PropsWithChildren) {
+  const [authState, setAuthState] = useState<AuthState>({ status: "unknown" });
+  useEffect(() => {
+    async function initAuth() {
+      try {
+        const user = await getUserFromSession();
+        setAuthState({ status: "loggedIn", user });
+      } catch (error) {
+        if (typeof error !== "ApiError") {
+        }
+        setAuthState({ status: "loggedOut" });
+      }
+    }
+    initAuth();
+  }, []);
+  return (
+    <AuthContext.Provider value={{ state: authState, logIn, logOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
