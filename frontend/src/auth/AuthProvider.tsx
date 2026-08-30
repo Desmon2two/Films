@@ -1,6 +1,6 @@
 import { useEffect, useState, type PropsWithChildren } from "react";
 import { AuthContext } from "./context";
-import { getUserFromSession } from "./checkUser";
+import { getUserFromSession } from "./getUser";
 import { type AuthState } from "./AuthTypes";
 
 export function AuthProvider({ children }: PropsWithChildren) {
