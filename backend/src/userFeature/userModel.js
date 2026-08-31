@@ -8,15 +8,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },
+  }
 });
 const User = mongoose.model("User", userSchema);
 
 async function findByEmail(email) {
   const user = await User.findOne({
-    email: email,
+    email
   });
-  // const user = users.find(user => user.email === userEmail);
   return user || null;
 }
 

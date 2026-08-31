@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import cors from "cors"
 import express from "express";
+import cookieParser from "cookie-parser"
 const app = express();
 dotenv.config({ path: "../.env", debug: true });
 const PORT = process.env.PORT || 3000;
@@ -12,8 +13,10 @@ import errorHandler from "./middlewears/errorMiddleware.js";
 // MIDDLEWARE
 app.use(express.json());
 app.use(cors({
-	origin: "http://localhost:5173"
+	origin: "http://localhost:5173",
+	credentials: true
 }))
+app.use(cookieParser())
 
 // MOUNTING ROUTERS
 app.use("/auth", authRoute);
