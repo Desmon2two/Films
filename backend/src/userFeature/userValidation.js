@@ -51,7 +51,7 @@ if(email !== undefined){
     if (
         typeof email !== "string" ||
         email.length < 1 ||
-        email.length > 25 ||
+        email.length > 50 ||
         (!email.includes("@gmail.com") &&
         !email.includes("@yahoo.com") &&
         !email.includes("@yandex.ru") &&

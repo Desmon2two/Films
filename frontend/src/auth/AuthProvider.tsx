@@ -2,7 +2,6 @@ import { useEffect, useState, type PropsWithChildren } from "react";
 import { AuthContext } from "./context";
 import { getUserFromSession } from "./getUser";
 import { type AuthState } from "./AuthTypes";
-import { ApiError } from "../types/ApiErrorType";
 import loginUser from "../api/loginUser";
 import logoutUser from "../api/logoutUser";
 
