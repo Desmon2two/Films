@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { RegisterStatus } from "../types/RegisterStatusType";
 import useAuth from "../auth/useAuth";
+import type { ApiError } from "../types/ApiErrorType";
+import type { RegisterValidationErrors } from "../types/RegisterValidationErrorsType";
 
 export default function RegisterPage() {
   const [status, setStatus] = useState<RegisterStatus>({ status: "idle" });
@@ -8,7 +10,8 @@ export default function RegisterPage() {
   const [username, setUsername] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string | null>(null);
-  const [validationError, setValidationError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<RegisterValidationErrors | null>(null);
+  const [serverError, setServerError] = useState<ApiError | null>(null);
   const { logIn } = useAuth();
   function handleSubmit() {
     if (password !== confirmPassword)
