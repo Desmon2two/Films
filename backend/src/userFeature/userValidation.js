@@ -62,7 +62,7 @@ if(email !== undefined){
 if(password !== undefined){
     if (
         typeof password !== "string" ||
-        password.length < 1 ||
+        password.length < 4 ||
         password.length > 25
     )
     throw new ValidationError("Invalid password");
