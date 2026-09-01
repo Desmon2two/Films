@@ -1,6 +1,6 @@
 export type RegisterValidationErrors = {
-    email?: string,
-    password?: string,
-    nickname?: string,
-    confirmPassword?: string
-}
+  email?: string;
+  password?: string;
+  username?: string;
+  confirmPassword?: string;
+};

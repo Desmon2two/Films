@@ -4,5 +4,6 @@ export type AuthContextValue = {
     state: AuthState;
     logIn: (email: string, password: string)=>Promise<void>;
     logOut: ()=>Promise<void>;
+    register: (email: string, password: string, username: string)=>Promise<void>;
 
 }

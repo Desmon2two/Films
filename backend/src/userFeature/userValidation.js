@@ -8,65 +8,65 @@ function validateUserPatch(userData) {
     allowedFields.includes(field),
   );
   if (!isAllowed) throw new ValidationError("Invalid profile field");
-if(userData.username !== undefined){
-
+  if (userData.username !== undefined) {
     if (
-        typeof userData.username !== "string" ||
-        userData.username.length < 1 ||
-        userData.username.length > 25
+      typeof userData.username !== "string" ||
+      userData.username.length < 3 ||
+      userData.username.length > 25
     )
-    throw new ValidationError("Invalid username");
-}
-if(userData.displayName !== undefined){
-
+      throw new ValidationError("Invalid username");
+  }
+  if (userData.displayName !== undefined) {
     if (
-        typeof userData.displayName !== "string" ||
-        userData.displayName.length < 1 ||
-        userData.displayName.length > 25
+      typeof userData.displayName !== "string" ||
+      userData.displayName.length < 1 ||
+      userData.displayName.length > 25
     )
-    throw new ValidationError("Invalid displayName");
-}
-if(userData.profilePic !== undefined){
-
-    if (typeof userData.profilePic !== "string" || userData.profilePic.length < 1)
-        throw new ValidationError("Invalid profile picture");
-}
-if(userData.bio !== undefined){
-
+      throw new ValidationError("Invalid displayName");
+  }
+  if (userData.profilePic !== undefined) {
+    if (
+      typeof userData.profilePic !== "string" ||
+      userData.profilePic.length < 1
+    )
+      throw new ValidationError("Invalid profile picture");
+  }
+  if (userData.bio !== undefined) {
     if (typeof userData.bio !== "string" || userData.bio.length > 250)
-        throw new ValidationError("Invalid bio");
-}
-  return
+      throw new ValidationError("Invalid bio");
+  }
+  return;
 }
 function validateCredentialsPatch(userData) {
-    const objectFields = Object.getOwnPropertyNames(userData);
-    if (objectFields.length === 0) throw new ValidationError("Nothing to update");
-    const allowedFields = ["email", "password"];
-    const isAllowed = objectFields.every((field) =>
-        allowedFields.includes(field),
-);
-if (!isAllowed) throw new ValidationError("Invalid profile field");
-const {email, password} = userData
-if(email !== undefined){
+  const objectFields = Object.getOwnPropertyNames(userData);
+  if (objectFields.length === 0) throw new ValidationError("Nothing to update");
+  const allowedFields = ["email", "password"];
+  const isAllowed = objectFields.every((field) =>
+    allowedFields.includes(field),
+  );
+  if (!isAllowed) throw new ValidationError("Invalid profile field");
+  const { email, password } = userData;
+  if (email !== undefined) {
     if (
-        typeof email !== "string" ||
-        email.length < 1 ||
-        email.length > 50 ||
-        (!email.includes("@gmail.com") &&
-        !email.includes("@yahoo.com") &&
-        !email.includes("@yandex.ru") &&
-        !email.includes("@mail.ru"))
+      typeof email !== "string" ||
+      email.length < 1 ||
+      email.length > 50 ||
+      !email.includes("@") ||
+      !email.includes(".")
     )
-    throw new ValidationError("Invalid email");
-}
-if(password !== undefined){
+      throw new ValidationError("Invalid email");
+  }
+  if (password !== undefined) {
     if (
-        typeof password !== "string" ||
-        password.length < 4 ||
-        password.length > 25
+      typeof password !== "string" ||
+      password.length < 4 ||
+      password.length > 25 ||
+      !password.search(/[A-Z]/) ||
+      !password.search(/[a-z]/) ||
+      !password.search(/[0-9]/)
     )
-    throw new ValidationError("Invalid password");
-}
-  return
+      throw new ValidationError("Invalid password");
+  }
+  return;
 }
 export default { validateUserPatch, validateCredentialsPatch };

@@ -9,17 +9,20 @@ import { UnauthorizedError } from "../errors/unauthorizedError.js";
 import { ValidationError } from "../errors/validationError.js";
 import userValidation from "../userFeature/userValidation.js";
 
-async function registerUser(email, password) {
+async function registerUser(email, password, username) {
 	await userValidation.validateCredentialsPatch({ email, password });
-	const exists = await userService.findByEmail(email);
+	await userValidation.validateUserPatch({ username });
+	let exists = await userService.findByEmail(email);
+	exists = await userService.findByUsername(username);
 	if (exists) throw new ForbiddenError("User already exists");
 	const hashedPassword = await passwordService.hashPassword(password);
-	const user = await userService.createUser(email, hashedPassword);
+	const user = await userService.createUser(email, hashedPassword, username);
 	const accessToken = await authService.generateAccessToken(user._id);
 	return {
 		user: {
 			id: user._id,
 			email: user.email,
+			username: user.username
 		},
 		accessToken,
 	};
@@ -88,7 +91,6 @@ async function patchUserEmail(userId, password, email) {
 }
 async function patchUser(userId, userData) {
 	userValidation.validateUserPatch(userData);
-
 	const user = await userService.patchOne(userId, userData);
 	if (!user) throw new NotFoundError("User not found");
 	return {
