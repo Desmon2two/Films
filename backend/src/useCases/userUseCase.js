@@ -53,6 +53,7 @@ async function getCurrentUser(userId) {
 	return {
 		user: {
 			email: user.email,
+			username: user.username
 		},
 	};
 }
