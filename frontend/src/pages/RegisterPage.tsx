@@ -47,7 +47,6 @@ export default function RegisterPage() {
     setSubmitionStatus({ status: "submitting" });
     try {
       await register(email, password, username);
-      if (state.status === "loggedIn") redirect("/");
     } catch (error: unknown) {
       const err = normalizeError(error);
       setSubmitionStatus({ status: "failure", error: err });
@@ -135,6 +134,7 @@ export default function RegisterPage() {
   }
   return (
     <form onSubmit={handleSubmit}>
+      <p>Email:</p>
       <input
         type="email"
         name="emailInput"
@@ -143,6 +143,7 @@ export default function RegisterPage() {
         onBlur={() => handleBlur("email")}
       />
       {validationError?.email && <p>{validationError.email}</p>}
+      <p>Username:</p>
       <input
         type="text"
         name="usernameInput"
@@ -151,6 +152,7 @@ export default function RegisterPage() {
         onBlur={() => handleBlur("username")}
       />
       {validationError?.username && <p>{validationError.username}</p>}
+      <p>Password:</p>
       <input
         type="password"
         name=""
@@ -159,6 +161,7 @@ export default function RegisterPage() {
         onBlur={() => handleBlur("password")}
       />
       {validationError?.password && <p>{validationError.password}</p>}
+      <p>Confirm password:</p>
       <input
         type="password"
         name=""
@@ -172,7 +175,8 @@ export default function RegisterPage() {
       <button
         type="submit"
         disabled={submitionStatus.status === "submitting"}
-      ></button>
+        style={{height: 30}}
+      >Submit</button>
       {serverError && <h1>500 Internal server error please try again</h1>}
     </form>
   );

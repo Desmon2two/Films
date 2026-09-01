@@ -61,9 +61,9 @@ function validateCredentialsPatch(userData) {
       typeof password !== "string" ||
       password.length < 4 ||
       password.length > 25 ||
-      !password.search(/[A-Z]/) ||
-      !password.search(/[a-z]/) ||
-      !password.search(/[0-9]/)
+      password.search(/[A-Z]/) === -1 ||
+      password.search(/[a-z]/) === -1 ||
+      password.search(/[0-9]/) === -1
     )
       throw new ValidationError("Invalid password");
   }

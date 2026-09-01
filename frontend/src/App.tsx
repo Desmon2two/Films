@@ -5,10 +5,10 @@ import AuthProvider from "./auth/AuthProvider";
 export default function App() {
   return (
     <main>
-      <Navbar />
       <AuthProvider>
+        <Navbar />
 
-      <AppRoutes />
+        <AppRoutes />
       </AuthProvider>
     </main>
   );
