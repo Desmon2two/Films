@@ -4,6 +4,7 @@ import videoController from "./videoController.js";
 const router = express.Router();
 
 router.get("/", videoController.showVideos);
+router.get("/search", videoController.searchVideos);
 router.get("/:videoId", videoController.getVideo);
 router.delete("/:videoId", authenticate, videoController.deleteVideo);
 

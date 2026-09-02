@@ -8,6 +8,14 @@ async function get(videoId) {
 	const video = await videoModel.get(videoId);
 	return video;
 }
+async function getVideosByTitle(title) {
+	const videos = await videoModel.getVideosByTitle(title);
+	return videos;
+}
+async function getVideosByTitleWords(wordsArray) {
+	const videos = await videoModel.getVideosByTitleWords(wordsArray);
+	return videos;
+}
 async function showVideos(offset, limit) {
 	const videos = await videoModel.getVideos(offset, limit);
 	return videos;
@@ -28,6 +36,8 @@ async function deleteByUser(userId, context) {
 export default {
 	create,
 	get,
+	getVideosByTitle,
+	getVideosByTitleWords,
 	showVideos,
 	countVideos,
 	deleteVideo,

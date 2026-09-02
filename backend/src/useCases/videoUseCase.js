@@ -21,6 +21,18 @@ async function getVideo(videoId) {
 	if (!video) throw new NotFoundError("Requested video does not exist");
 	return video;
 }
+async function searchVideos(title) {
+	if (typeof title !== "string") return {videos:[]}
+	const clearedTite = title.trim().replace(/\s+/g, " ")
+	if (clearedTite === "") return {videos:[]}
+	const videos = await videoService.getVideosByTitle(clearedTite);
+	if (videos.length === 0) {
+		const splittedTitle = clearedTite.split(" ")
+		const videosByTitleWords = await videoService.getVideosByTitleWords(splittedTitle)
+		return {videos: videosByTitleWords};
+	};
+	return {videos};
+}
 async function deleteVideo(videoId, userId) {
 	const isValid = validateVideoId(videoId);
 	if (!isValid) throw new ValidationError("Wrong video id");
@@ -63,6 +75,7 @@ async function showVideos(page, limit) {
 export default {
 	createVideo,
 	getVideo,
+	searchVideos,
 	showVideos,
 	deleteVideo,
 };

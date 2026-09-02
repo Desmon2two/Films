@@ -22,6 +22,15 @@ async function getVideo(req, res, next) {
 		next(error);
 	}
 }
+async function searchVideos(req, res, next) {
+	try {
+		const {q} = req.query;
+		const result = await videoUseCase.searchVideos(q);
+		res.status(200).json(result);
+	} catch (error) {
+		next(error);
+	}
+}
 async function deleteVideo(req, res, next) {
 	try {
 		const {videoId} = req.params;
@@ -43,6 +52,7 @@ async function showVideos(req, res, next) {
 }
 
 export default {
+	searchVideos,
 	postVideo,
 	getVideo,
 	showVideos,
