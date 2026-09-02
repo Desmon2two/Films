@@ -4,21 +4,21 @@ import videoService from "../videoFeature/videoService.js";
 import { NotFoundError } from "../errors/notFoundError.js";
 import { ValidationError } from "../errors/validationError.js";
 import { ForbiddenError } from "../errors/forbiddenError.js";
+import mapVideo from "../infrastructure/utils/videoMapper.js";
 
 async function createVideo(videoData, userId) {
 	const user = await userService.findById(userId);
 	if (!user) throw new NotFoundError("User not found");
-
-	// if (user.status !== "active") throw new Error("User cannot create videos");
-
-	const video = await videoService.create(videoData, userId);
+	const result = await videoService.create(videoData, userId);
+	const video = mapVideo(result)
 	return video;
 }
 async function getVideo(videoId) {
 	const isValid = validateVideoId(videoId);
 	if (!isValid) throw new ValidationError("Wrong video id");
-	const video = await videoService.get(videoId);
-	if (!video) throw new NotFoundError("Requested video does not exist");
+	const result = await videoService.get(videoId);
+	if (!result) throw new NotFoundError("Requested video does not exist");
+	const video = mapVideo(result)
 	return video;
 }
 async function searchVideos(title) {
@@ -29,9 +29,9 @@ async function searchVideos(title) {
 	if (videos.length === 0) {
 		const splittedTitle = clearedTite.split(" ")
 		const videosByTitleWords = await videoService.getVideosByTitleWords(splittedTitle)
-		return {videos: videosByTitleWords};
+		return {videos: videosByTitleWords.map(mapVideo)};
 	};
-	return {videos};
+	return {videos: videos.map(mapVideo)};
 }
 async function deleteVideo(videoId, userId) {
 	const isValid = validateVideoId(videoId);
@@ -61,7 +61,7 @@ async function showVideos(page, limit) {
 	]);
 	const totalPages = Math.ceil(totalVideos / limit);
 	const result = {
-		videos,
+		videos: videos.map(mapVideo),
 		pagination: {
 			page,
 			limit,

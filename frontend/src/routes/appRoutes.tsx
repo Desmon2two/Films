@@ -6,6 +6,7 @@ import ProfilePage from "../pages/profilePage";
 import RegisterPage from "../pages/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestOnlyRoute from "./GuestOnlyRoute";
+import SearchPage from "../pages/SearchPage";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,10 @@ export default function AppRoutes() {
       <Route
         path="/videos/:id"
         element={<VideoPage />}
+      />
+      <Route
+        path="/search"
+        element={<SearchPage />}
       />
       <Route element={<GuestOnlyRoute />}>
         <Route
