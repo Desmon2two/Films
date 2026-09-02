@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { RegisterStatus } from "../types/RegisterStatusType";
+import type { OperationStatus } from "../types/OperationStatusType";
 import useAuth from "../auth/useAuth";
 import type { ApiError } from "../types/ApiErrorType";
 import type { RegisterValidationErrors } from "../types/RegisterValidationErrorsType";
@@ -7,10 +7,9 @@ import validateEmail from "../utils/validateEmail";
 import validatePassword from "../utils/validatePassword";
 import validateUsername from "../utils/validateUsername";
 import normalizeError from "../utils/normalizeError";
-import { redirect } from "react-router-dom";
 
 export default function RegisterPage() {
-  const [submitionStatus, setSubmitionStatus] = useState<RegisterStatus>({
+  const [submitionStatus, setSubmitionStatus] = useState<OperationStatus>({
     status: "idle",
   });
   const [email, setEmail] = useState<string>("");
@@ -175,8 +174,10 @@ export default function RegisterPage() {
       <button
         type="submit"
         disabled={submitionStatus.status === "submitting"}
-        style={{height: 30}}
-      >Submit</button>
+        style={{ height: 30 }}
+      >
+        Submit
+      </button>
       {serverError && <h1>500 Internal server error please try again</h1>}
     </form>
   );

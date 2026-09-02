@@ -1,6 +1,6 @@
 import type { ApiError } from "./ApiErrorType";
 
-export type RegisterStatus =
+export type OperationStatus =
 | {status: "idle"}
 | {status: "submitting"}
 | {status: "success"}
