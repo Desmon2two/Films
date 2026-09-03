@@ -1,65 +1,81 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../auth/useAuth";
 import { useState } from "react";
+import AuthMenu from "./AuthMenu";
 
 export default function Navbar() {
-  const { state, operationState, logOut } = useAuth();
   const [query, setQuery] = useState("");
+  const [isSearchActive, setIsSearchActive] = useState(false);
   const navigate = useNavigate();
   function handleSubmit(event) {
     event.preventDefault();
     const encodedQuery = encodeURIComponent(query);
     navigate(`/search?q=${encodedQuery}`);
   }
-  function handleLogout() {
-    logOut();
-  }
   return (
-    <nav>
-      <button>
-        <Link to="/">
-          <p>Home</p>
-        </Link>
-      </button>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="search"
-          name="searchBox"
-          id=""
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button type="submit"></button>
-      </form>
+    <nav className="navbar">
+      {!isSearchActive ? (
+        <div className="navbar__normal">
+          <Link
+            to="/"
+            className="navbar__home"
+          >
+            Home
+          </Link>
+          <form
+            onSubmit={handleSubmit}
+            className="navbar__search"
+          >
+            <input
+              type="search"
+              name="searchBox"
+              id=""
+              onChange={(e) => setQuery(e.target.value)}
+              className="navbar__search-input"
+            />
+            <button
+              type="submit"
+              className="navbar__search-submit"
+            >Search</button>
+          </form>
+          <button
+            type="button"
+            className="navbar__search-trigger"
+            onClick={() => setIsSearchActive(true)}
+          >
+            Search
+          </button>
 
-      <button hidden={state.status === "loggedIn"}>
-        <Link to="/register">
-          <p>Register</p>
-        </Link>
-      </button>
+          <AuthMenu />
+        </div>
+      ) : (
+        <>
+          <form
+            onSubmit={handleSubmit}
+            className="navbar__active-search"
+          >
+            <input
+              type="search"
+              name="searchBox"
+              id=""
+              onChange={(e) => setQuery(e.target.value)}
+              className="navbar__search-input"
+            />
 
-      <button hidden={state.status === "loggedIn"}>
-        <Link to="/login">
-          <p>Login</p>
-        </Link>
-      </button>
-
-      <button hidden={state.status !== "loggedIn"}>
-        <Link to="/profile">
-          <p>Profile</p>
-        </Link>
-      </button>
-
-      <button
-        hidden={state.status !== "loggedIn"}
-        disabled={operationState.status === "submitting"}
-        onClick={handleLogout}
-      >
-        {operationState.status === "submitting" ? (
-          <p>Logging out...</p>
-        ) : (
-          <p>Log out</p>
-        )}
-      </button>
+            <button
+              type="submit"
+              className="navbar__search-submit"
+            >Search</button>
+          </form>
+          <button
+            type="button"
+            className="navbar__search-close"
+            onClick={() => setIsSearchActive(false)}
+          >
+            Close
+          </button>
+        </>
+      )}
     </nav>
   );
 }

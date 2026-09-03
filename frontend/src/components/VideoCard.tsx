@@ -6,20 +6,21 @@ export default function VideoCard({
   title,
   description,
   year,
-  onAction
-}: VideoCardProps, ) {
+  onAction,
+}: VideoCardProps) {
   return (
-    <div
-      className="videoCard"
+    <article
+      className="video-card"
       onClick={onAction}
     >
-      {/* <img
-        src={coverURL}
-        className="videoCard__cover"
-      /> */}
-      <h2 className="videoCard__title">{title}</h2>
-      <p className="videoCard__description">{description}</p>
-      <p className="videoCard__year">{year}</p>
-    </div>
+      <div className="video-card__thumbnail">
+        {coverURL ? <img src={coverURL} /> : "Place holder"}
+      </div>
+      <div className="video-card__content">
+        <h2 className="video-card__title">{title}</h2>
+        <p className="video-card__description">{description}</p>
+        <p className="video-card__year">{year}</p>
+      </div>
+    </article>
   );
 }

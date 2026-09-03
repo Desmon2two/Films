@@ -26,6 +26,8 @@ export default function SearchPage() {
       }
     })();
   }, [query]);
+
+  
   if (state.status === "loading") return <PageSkeleton />;
   if (state.status === "failure")
     return <>{state.error && <p>{state.error.message}</p>}</>;
