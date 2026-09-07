@@ -7,9 +7,9 @@ export default function PaginationNavigation({
   onPrevious,
 }: PaginationNavigationProps) {
   return (
-    <section>
+    <section className="pagination">
       <button
-        className="videoGrid__button navBtn"
+        className="pagination__prvBtn"
         disabled={page === 1}
         onClick={() => {
           onPrevious();
@@ -17,11 +17,11 @@ export default function PaginationNavigation({
       >
         Previous
       </button>
-      <p>
+      <p className="pagination_currPage">
         Page {page} of {totalPages}
       </p>
       <button
-        className="videoGrid__button navBtn"
+        className="pagination__nxtBtn"
         disabled={page >= totalPages}
         onClick={() => {
           onNext();

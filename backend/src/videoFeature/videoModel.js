@@ -6,6 +6,9 @@ const videoSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    coverURL: {
+      type: String
+    },
     title: {
       type: String,
       required: true,
@@ -24,9 +27,10 @@ const videoSchema = new mongoose.Schema(
 
 const Video = mongoose.model("Video", videoSchema);
 
-function post({ title, description, year }, creatorId) {
+function post({ title, description, year, coverURL }, creatorId) {
   return Video.create({
     creatorId,
+    coverURL,
     title,
     description,
     year,

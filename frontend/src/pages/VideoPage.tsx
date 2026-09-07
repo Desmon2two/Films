@@ -25,11 +25,20 @@ export default function VideoPage() {
     );
   if (requestState.status === "success")
     return (
-      <section>
-        <h1>
-          The video with title {requestState.data.title} and description{" "}
-          {requestState.data.description} of year {requestState.data.year}
-        </h1>
+      <section className="video-page">
+        <img
+          src=""
+          className="video-page__thumbnail"
+        >
+          {requestState.data.coverURL}
+        </img>
+        <div className="video-page__content">
+          <h1 className="video-page__title">{requestState.data.title}</h1>
+          <p className="video-page__description">
+            {requestState.data.description}
+          </p>
+          <p className="video-page__year">{requestState.data.year}</p>
+        </div>
       </section>
     );
 }

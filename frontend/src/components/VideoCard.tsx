@@ -14,7 +14,15 @@ export default function VideoCard({
       onClick={onAction}
     >
       <div className="video-card__thumbnail">
-        {coverURL ? <img src={coverURL} /> : "Place holder"}
+        {coverURL ? (
+          <img
+            src={coverURL}
+            alt={title}
+            className="video-card__image"
+          />
+        ) : (
+          "Place holder"
+        )}
       </div>
       <div className="video-card__content">
         <h2 className="video-card__title">{title}</h2>

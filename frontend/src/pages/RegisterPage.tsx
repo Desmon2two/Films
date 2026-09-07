@@ -132,9 +132,9 @@ export default function RegisterPage() {
     }
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Email:</p>
-      <input
+    <form onSubmit={handleSubmit} className="reg-form">
+      <p >Email:</p>
+      <input className="reg-form__email-input"
         type="email"
         name="emailInput"
         id=""
@@ -143,7 +143,7 @@ export default function RegisterPage() {
       />
       {validationError?.email && <p>{validationError.email}</p>}
       <p>Username:</p>
-      <input
+      <input className="reg-form__username-input"
         type="text"
         name="usernameInput"
         id=""
@@ -152,7 +152,7 @@ export default function RegisterPage() {
       />
       {validationError?.username && <p>{validationError.username}</p>}
       <p>Password:</p>
-      <input
+      <input className="reg-form__password-input"
         type="password"
         name=""
         id="passwordInput"
@@ -161,7 +161,7 @@ export default function RegisterPage() {
       />
       {validationError?.password && <p>{validationError.password}</p>}
       <p>Confirm password:</p>
-      <input
+      <input className="reg-form__confirm-password-input"
         type="password"
         name=""
         id="confirmPasswordInput"
@@ -171,7 +171,7 @@ export default function RegisterPage() {
       {validationError?.confirmPassword && (
         <p>{validationError.confirmPassword}</p>
       )}
-      <button
+      <button className="reg-form__sbmt-button"
         type="submit"
         disabled={submitionStatus.status === "submitting"}
         style={{ height: 30 }}

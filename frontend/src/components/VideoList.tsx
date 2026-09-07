@@ -3,7 +3,7 @@ import VideoCard from "./VideoCard";
 
 export default function VideoList({ videos, onVideoClick }: VideoListProps) {
   return (
-    <div className="videoGrid">
+    <div className="video-list">
       {videos.map((video) => (
         <VideoCard
           {...video}

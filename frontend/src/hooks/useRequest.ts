@@ -1,12 +1,12 @@
 import { useEffect, useState, type DependencyList } from "react";
-import type { RequestStateType } from "../types/RequestStateType";
+import type { RequestState } from "../types/RequestStateType";
 import normalizeError from "../utils/normalizeError";
 
 export default function useRequest<T>(
   fn: () => Promise<T>,
   dependencies: DependencyList,
 ) {
-  const [requestState, setRequestState] = useState<RequestStateType<T>>({
+  const [requestState, setRequestState] = useState<RequestState<T>>({
     status: "loading",
   });
   useEffect(() => {
