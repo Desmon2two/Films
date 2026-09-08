@@ -27,11 +27,9 @@ export default function VideoPage() {
     return (
       <section className="video-page">
         <img
-          src=""
+          src={requestState.data.coverURL}
           className="video-page__thumbnail"
-        >
-          {requestState.data.coverURL}
-        </img>
+        />
         <div className="video-page__content">
           <h1 className="video-page__title">{requestState.data.title}</h1>
           <p className="video-page__description">

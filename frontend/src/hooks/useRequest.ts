@@ -5,11 +5,13 @@ import normalizeError from "../utils/normalizeError";
 export default function useRequest<T>(
   fn: () => Promise<T>,
   dependencies: DependencyList,
+  enabled: boolean = true
 ) {
   const [requestState, setRequestState] = useState<RequestState<T>>({
     status: "loading",
   });
   useEffect(() => {
+    if (!enabled) return;
     async function executeRequest() {
       try {
         setRequestState({ status: "loading" });

@@ -33,6 +33,12 @@ async function searchVideos(title) {
 	};
 	return {videos: videos.map(mapVideo)};
 }
+async function getVideosByUser(userId) {
+	const user = await userService.findById(userId)
+	if (!user) throw new NotFoundError("User not found");
+	const videos = await videoService.getVideosByUserId(user.id);
+	return {videos: videos.map(mapVideo)};
+}
 async function deleteVideo(videoId, userId) {
 	const isValid = validateVideoId(videoId);
 	if (!isValid) throw new ValidationError("Wrong video id");
@@ -75,6 +81,7 @@ async function showVideos(page, limit) {
 export default {
 	createVideo,
 	getVideo,
+	getVideosByUser,
 	searchVideos,
 	showVideos,
 	deleteVideo,

@@ -16,6 +16,10 @@ async function getVideosByTitleWords(wordsArray) {
 	const videos = await videoModel.getVideosByTitleWords(wordsArray);
 	return videos;
 }
+async function getVideosByUserId(userId) {
+	const videos = await videoModel.getVideosByUserId(userId);
+	return videos;
+}
 async function showVideos(offset, limit) {
 	const videos = await videoModel.getVideos(offset, limit);
 	return videos;
@@ -38,6 +42,7 @@ export default {
 	get,
 	getVideosByTitle,
 	getVideosByTitleWords,
+	getVideosByUserId,
 	showVideos,
 	countVideos,
 	deleteVideo,

@@ -6,9 +6,10 @@ export default function App() {
   return (
     <main>
       <AuthProvider>
+        <div className="main-area">
         <Navbar />
-
         <AppRoutes />
+        </div>
       </AuthProvider>
     </main>
   );

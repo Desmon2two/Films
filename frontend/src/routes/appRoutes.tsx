@@ -7,6 +7,9 @@ import RegisterPage from "../pages/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestOnlyRoute from "./GuestOnlyRoute";
 import SearchPage from "../pages/SearchPage";
+import CreatorControlsPage from "../pages/CreatorControlsPage";
+import ChangeUserDataPage from "../pages/ChangeUserDataPage";
+import SettingsPage from "../pages/SettingsPage";
 
 export default function AppRoutes() {
   return (
@@ -37,6 +40,18 @@ export default function AppRoutes() {
         <Route
           path="/profile"
           element={<ProfilePage />}
+        />
+        <Route
+          path="/creator-controls"
+          element={<CreatorControlsPage />}
+        />
+        <Route
+          path="/settings"
+          element={<SettingsPage />}
+        />
+        <Route
+          path="/settings/change-user-data-page"
+          element={<ChangeUserDataPage />}
         />
       </Route>
     </Routes>

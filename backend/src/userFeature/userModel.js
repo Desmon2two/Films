@@ -12,20 +12,26 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+  },
+  displayName: {
+    type: String,
+  },
+  bio: {
+    type: String
   }
 });
 const User = mongoose.model("User", userSchema);
 
 async function findByEmail(email) {
   const user = await User.findOne({
-    email
+    email,
   });
   return user || null;
 }
 async function findByUsername(username) {
   const user = await User.findOne({
-    username
+    username,
   });
   return user || null;
 }
@@ -49,16 +55,22 @@ function createUser(email, password, username) {
   return User.create({
     email,
     password,
-    username
+    username,
   });
-  
 }
 function patchUser(userId, newData) {
   return User.findOneAndUpdate(
     { _id: userId },
     { $set: newData },
     { new: true },
-  )
+  );
 }
 
-export default { findByEmail, findByUsername, findById, createUser, deleteById, patchUser };
+export default {
+  findByEmail,
+  findByUsername,
+  findById,
+  createUser,
+  deleteById,
+  patchUser,
+};

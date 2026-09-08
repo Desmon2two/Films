@@ -9,7 +9,7 @@ export default function PaginationNavigation({
   return (
     <section className="pagination">
       <button
-        className="pagination__prvBtn"
+        className="pagination__button button"
         disabled={page === 1}
         onClick={() => {
           onPrevious();
@@ -17,11 +17,11 @@ export default function PaginationNavigation({
       >
         Previous
       </button>
-      <p className="pagination_currPage">
+      <p className="pagination_current">
         Page {page} of {totalPages}
       </p>
       <button
-        className="pagination__nxtBtn"
+        className="pagination__button button"
         disabled={page >= totalPages}
         onClick={() => {
           onNext();

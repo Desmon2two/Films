@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className="navbar__normal">
           <Link
             to="/"
-            className="navbar__home"
+            className="navbar__home link"
           >
             Home
           </Link>
@@ -34,12 +34,12 @@ export default function Navbar() {
             />
             <button
               type="submit"
-              className="navbar__search-submit"
+              className="navbar__search-submit  button"
             >Search</button>
           </form>
           <button
             type="button"
-            className="navbar__search-trigger"
+            className="navbar__search-trigger button"
             onClick={() => setIsSearchActive(true)}
           >
             Search
@@ -63,12 +63,12 @@ export default function Navbar() {
 
             <button
               type="submit"
-              className="navbar__search-submit"
+              className="navbar__search-submit button"
             >Search</button>
           </form>
           <button
             type="button"
-            className="navbar__search-close"
+            className="navbar__search-close button"
             onClick={() => setIsSearchActive(false)}
           >
             Close

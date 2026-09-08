@@ -6,7 +6,7 @@ export default function AuthMenu() {
   const { state, operationState, logOut } = useAuth();
   const [isDroppedDown, setIsDroppedDown] = useState(false);
   function handleDropdown() {
-    setIsDroppedDown(prev => !prev)
+    setIsDroppedDown((prev) => !prev);
   }
   return (
     <div className="auth-menu">
@@ -14,14 +14,14 @@ export default function AuthMenu() {
         <>
           <Link
             to="/register"
-            className="auth-menu__register"
+            className="auth-menu__register link"
           >
             Register
           </Link>
 
           <Link
             to="/login"
-            className="auth-menu__login"
+            className="auth-menu__login link"
           >
             Login
           </Link>
@@ -37,22 +37,31 @@ export default function AuthMenu() {
           {isDroppedDown && (
             <div className="auth-menu__dropdown">
               <Link
-                className="auth-menu__profile"
+                className="auth-menu__profile link"
                 to="/profile"
               >
                 Profile
               </Link>
-
+              <Link
+                className="auth-menu__creator-controls link"
+                to="/creator-controls"
+              >
+                Creator controls
+              </Link>
+              <Link
+                className="auth-menu__settings link"
+                to="/settings"
+              >
+                Settings
+              </Link>
               <button
                 disabled={operationState.status === "submitting"}
                 onClick={logOut}
-                className="auth-menu__logout"
+                className="auth-menu__logout button"
               >
-                {operationState.status === "submitting" ? (
-                  "Logging out..."
-                ) : (
-                  "Log out"
-                )}
+                {operationState.status === "submitting"
+                  ? "Logging out..."
+                  : "Log out"}
               </button>
             </div>
           )}

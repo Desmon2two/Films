@@ -7,7 +7,7 @@ const videoSchema = new mongoose.Schema(
       required: true,
     },
     coverURL: {
-      type: String
+      type: String,
     },
     title: {
       type: String,
@@ -50,14 +50,17 @@ function getVideos(offset, limit) {
   return Video.find().sort({ createdAt: -1 }).skip(offset).limit(limit);
 }
 function getVideosByTitle(title) {
-  const search = new RegExp(RegExp.escape(title), "i")
-  return Video.find({title: search}).sort({ createdAt: -1 });
+  const search = new RegExp(RegExp.escape(title), "i");
+  return Video.find({ title: search }).sort({ createdAt: -1 });
 }
 function getVideosByTitleWords(wordsArray) {
-  const searchArr = wordsArray.map((el)=>{
-    return {title: new RegExp(RegExp.escape(el), "i")}
-  })
-  return Video.find({$or: searchArr}).sort({ createdAt: -1 });
+  const searchArr = wordsArray.map((el) => {
+    return { title: new RegExp(RegExp.escape(el), "i") };
+  });
+  return Video.find({ $or: searchArr }).sort({ createdAt: -1 });
+}
+function getVideosByUserId(userId) {
+  return Video.find({ creatorId: userId }).sort({ createdAt: -1 });
 }
 function countVideos() {
   return Video.countDocuments();
@@ -69,6 +72,7 @@ export default {
   getVideos,
   getVideosByTitle,
   getVideosByTitleWords,
+  getVideosByUserId,
   countVideos,
   deleteVideo,
   deleteByUser,

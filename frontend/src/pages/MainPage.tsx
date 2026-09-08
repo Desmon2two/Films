@@ -14,11 +14,11 @@ export default function MainPage() {
     () => fetchVideos(page, limit),
     [page, limit],
   );
-  const navigate = useNavigate();
+
+const navigate = useNavigate();
   function handleClick(id: string) {
     navigate(`/videos/${id}`);
   }
-
   if (requestState.status === "loading")
     return (
       <>

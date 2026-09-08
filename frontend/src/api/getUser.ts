@@ -10,5 +10,5 @@ export async function getUserFromSession(): Promise<User> {
   );
   const data = await response.json();
   if (!response.ok) throw new ApiError(response.status, data.message);
-  return data;
+  return data.user;
 }

@@ -3,8 +3,8 @@ export type User = {
   email: string;
   username: string;
   displayName: string;
-  profilePicture: string | null;
-  bio: string | null;
+  profilePicture: string;
+  bio: string;
 };
 
 export type AuthState =

@@ -53,8 +53,11 @@ async function getCurrentUser(userId) {
   if (!user) throw new NotFoundError("User not found");
   return {
     user: {
+      id: user._id,
       email: user.email,
       username: user.username,
+      displayName: user.displayName,
+      bio: user.bio
     },
   };
 }

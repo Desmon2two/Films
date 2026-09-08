@@ -7,10 +7,11 @@ export default function VideoCard({
   description,
   year,
   onAction,
+  isSelected
 }: VideoCardProps) {
   return (
     <article
-      className="video-card"
+      className={`video-card${isSelected ? " video-card--selected" : ""}`}
       onClick={onAction}
     >
       <div className="video-card__thumbnail">

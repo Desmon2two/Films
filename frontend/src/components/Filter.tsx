@@ -7,7 +7,7 @@ export function Filter({limit, setLimit}: FilterProps) {
             Set how many videos should be displayed
           </p>
           <input
-            type="text"
+            type="number"
             className="filter__input"
             min={1}
             value={limit}
