@@ -1,5 +1,5 @@
 export type ChangeUser = {
-    profilePicture: string
+    profilePic: string
     username: string,
     displayName: string,
     bio: string

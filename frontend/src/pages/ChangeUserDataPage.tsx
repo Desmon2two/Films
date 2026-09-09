@@ -9,7 +9,7 @@ export default function ChangeUserDataPage() {
   if (state.status === "loggedIn")
     return (
       <div className="change-user-data">
-         <ChangeUserForm user={state.user} />;
+         <ChangeUserForm user={state.user} />
         
       </div>
     );

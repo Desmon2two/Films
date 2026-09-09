@@ -25,39 +25,50 @@ export default function ProfilePage() {
   if (state.status === "loggedIn")
     return (
       <section className="profile">
-        <div className="profile__about-me">
-          <h1>Profile page</h1>
-          <img
-          className="profile__profile-pic"
-            src={state.user.profilePicture ? state.user.profilePicture : "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"}
-            alt="user profile picture"
-          />
-          <p className="profile__email">Email: {state.user.email}</p>
-          <p className="profile__username">Username: {state.user.username}</p>
-          <p className="profile__displayName">
-            Display name: {state.user.displayName}
-          </p>
-          <p className="profile__bio">Bio: {state.user.bio}</p>
-        </div>
-        <Link
-          className="profile__change link"
-          to="/settings/change-user-data-page"
-        >
-          Change profile details
-        </Link>
+        <h1>Profile page</h1>
+        <div className="profile__info-and-control">
+          <div className="profile__about-me">
+            <div className="profile__profile-pic-container profile-pic-container">
+              <img
+                className="profile__profile-pic profile-pic"
+                src={
+                  state.user.profilePic
+                    ? state.user.profilePic
+                    : "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
+                }
+                alt="user profile picture"
+              />
+            </div>
+            <p className="profile__email">Email: {state.user.email}</p>
+            <p className="profile__username">Username: {state.user.username}</p>
+            <p className="profile__displayName">
+              Display name: {state.user.displayName}
+            </p>
+            <p className="profile__bio">Bio: {state.user.bio}</p>
+          </div>
+          <div className="profile__links">
+            <Link
+              className="profile__change link"
+              to="/settings/change-user-data-page"
+            >
+              Change profile details
+            </Link>
 
-        <Link
-          className="link"
-          to="/creator-controls"
-        >
-          Creator controls
-        </Link>
+            <Link
+              className="link"
+              to="/creator-controls"
+            >
+              Creator controls
+            </Link>
+          </div>
+        </div>
         {videoRequestState.status === "loading" && <p>Videos are loading...</p>}
         {videoRequestState.status === "success" &&
           (videoRequestState.data.length === 0 ? (
-            <p>No videos yet.</p>
+            <p> <hr />No videos yet.</p>
           ) : (
             <div className="profile__videos">
+              <hr />
               <VideoGrid
                 videos={videoRequestState.data}
                 onVideoClick={handleClick}

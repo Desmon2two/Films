@@ -81,6 +81,7 @@ export default function CreatorControlsPage() {
             className="controls-page__upload"
             onSubmit={handleUpload}
           >
+            <p>Upload video</p>
             <input
               type="text"
               name="coverURL"
@@ -95,8 +96,7 @@ export default function CreatorControlsPage() {
               value={videoData.title}
               placeholder="Write title of the video here"
               className="upload__title-input"
-              onChange={handleChange
-              }
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -104,8 +104,7 @@ export default function CreatorControlsPage() {
               value={videoData.description}
               placeholder="Write description of the video here"
               className="upload__description-input"
-              onChange={handleChange
-              }
+              onChange={handleChange}
             />
             <input
               type="text"
@@ -113,8 +112,7 @@ export default function CreatorControlsPage() {
               value={videoData.year}
               placeholder="Write year of the video here"
               className="upload__year-input"
-              onChange={handleChange
-              }
+              onChange={handleChange}
             />
 
             <button
@@ -124,46 +122,53 @@ export default function CreatorControlsPage() {
               Upload
             </button>
             {uploadStatus.status === "failure" && (
-              <p>{String(uploadStatus.error)}</p>
+              <p className="upload__error-msg error-msg">
+                {String(uploadStatus.error)}
+              </p>
             )}
             {uploadStatus.status === "loading" && <p>Uploading...</p>}
             {uploadStatus.status === "success" && <p>Successfully uploaded</p>}
             {uploadStatus.status === "idle" && <></>}
           </form>
-          <button
-            className="controls-page__delete button"
-            disabled={isSelected.status === false}
-            onClick={() => setDeleteConfirm(true)}
-          >
-            Delete video
-          </button>
-          {deletionStatus.status === "success" && (
-            <p>Video deleted successfully</p>
-          )}
-          {deletionStatus.status === "failure" && (
-            <p>Something went wrong and video was not deleted</p>
-          )}
-        </div>
-        <div
-          className="controls-page__delete-confirm"
-          hidden={!deleteConfirm}
-        >
-          <p className="delete-confirm__warning">
-            Are you sure you want to delete?
-          </p>
-          <div className="delete-confirm__controls">
+          <div className="control-page__delete">
+            <p>Delete video</p>
             <button
-              className="button"
-              onClick={handleDelete}
+              className="delete__submit button"
+              disabled={isSelected.status === false}
+              onClick={() => setDeleteConfirm(true)}
             >
-              Yes
+              Delete
             </button>
-            <button
-              className="button"
-              onClick={() => setDeleteConfirm(false)}
+            <div
+              className="controls-page__delete-confirm"
+              style={{ display: !deleteConfirm ? 'none' : 'block' }}
             >
-              No
-            </button>
+              <p className="delete-confirm__warning">
+                Are you sure you want to delete?
+              </p>
+              <div className="delete-confirm__controls">
+                <button
+                  className=" delete-confirm__left button"
+                  onClick={handleDelete}
+                >
+                  Yes
+                </button>
+                <button
+                  className="delete-confirm__right button"
+                  onClick={() => setDeleteConfirm(false)}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+            {deletionStatus.status === "success" && (
+              <p>Video deleted successfully</p>
+            )}
+            {deletionStatus.status === "failure" && (
+              <p className="delete__error-msg error-msg">
+                Something went wrong and video was not deleted
+              </p>
+            )}
           </div>
         </div>
         <VideoGrid

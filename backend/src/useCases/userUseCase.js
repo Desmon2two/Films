@@ -43,6 +43,10 @@ async function loginUser(email, password) {
     user: {
       id: user._id,
       email: user.email,
+      username: user.userName,
+      displayName: user.displayName,
+      profilePic: user.profilePic,
+      bio: user.bio,
     },
     accessToken,
     refreshToken,
@@ -55,9 +59,10 @@ async function getCurrentUser(userId) {
     user: {
       id: user._id,
       email: user.email,
+      profilePic: user.profilePic,
       username: user.username,
       displayName: user.displayName,
-      bio: user.bio
+      bio: user.bio,
     },
   };
 }

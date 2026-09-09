@@ -132,53 +132,63 @@ export default function RegisterPage() {
     }
   }
   return (
-    <form onSubmit={handleSubmit} className="reg-form">
-      <p >Email:</p>
-      <input className="reg-form__email-input"
-        type="email"
-        name="emailInput"
-        id=""
-        onChange={(e) => setEmail(e.target.value)}
-        onBlur={() => handleBlur("email")}
-      />
-      {validationError?.email && <p>{validationError.email}</p>}
-      <p>Username:</p>
-      <input className="reg-form__username-input"
-        type="text"
-        name="usernameInput"
-        id=""
-        onChange={(e) => setUsername(e.target.value)}
-        onBlur={() => handleBlur("username")}
-      />
-      {validationError?.username && <p>{validationError.username}</p>}
-      <p>Password:</p>
-      <input className="reg-form__password-input"
-        type="password"
-        name=""
-        id="passwordInput"
-        onChange={(e) => setPassword(e.target.value)}
-        onBlur={() => handleBlur("password")}
-      />
-      {validationError?.password && <p>{validationError.password}</p>}
-      <p>Confirm password:</p>
-      <input className="reg-form__confirm-password-input"
-        type="password"
-        name=""
-        id="confirmPasswordInput"
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        onBlur={() => handleBlur("confirmPassword")}
-      />
-      {validationError?.confirmPassword && (
-        <p>{validationError.confirmPassword}</p>
-      )}
-      <button className="reg-form__sbmt-button"
-        type="submit"
-        disabled={submitionStatus.status === "submitting"}
-        style={{ height: 30 }}
+    <div className="reg-page">
+      <form
+        onSubmit={handleSubmit}
+        className="reg-form"
       >
-        Submit
-      </button>
-      {serverError && <h1>500 Internal server error please try again</h1>}
-    </form>
+        <p>Email:</p>
+        <input
+          className="reg-form__email-input"
+          type="email"
+          name="emailInput"
+          id=""
+          onChange={(e) => setEmail(e.target.value)}
+          onBlur={() => handleBlur("email")}
+        />
+        {validationError?.email && <p className="reg-form__error-msg error-msg">{validationError.email}</p>}
+        <p>Username:</p>
+        <input
+          className="reg-form__username-input"
+          type="text"
+          name="usernameInput"
+          id=""
+          onChange={(e) => setUsername(e.target.value)}
+          onBlur={() => handleBlur("username")}
+        />
+        {validationError?.username && <p className="reg-form__error-msg error-msg">{validationError.username}</p>}
+        <p>Password:</p>
+        <input
+          className="reg-form__password-input"
+          type="password"
+          name=""
+          id="passwordInput"
+          onChange={(e) => setPassword(e.target.value)}
+          onBlur={() => handleBlur("password")}
+        />
+        {validationError?.password && <p className="reg-form__error-msg error-msg">{validationError.password}</p>}
+        <p>Confirm password:</p>
+        <input
+          className="reg-form__confirm-password-input"
+          type="password"
+          name=""
+          id="confirmPasswordInput"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          onBlur={() => handleBlur("confirmPassword")}
+        />
+        {validationError?.confirmPassword && (
+          <p className="reg-form__error-msg error-msg">{validationError.confirmPassword}</p>
+        )}
+        <button
+          className="reg-form__submit button"
+          type="submit"
+          disabled={submitionStatus.status === "submitting"}
+          style={{ height: 30 }}
+        >
+          Submit
+        </button>
+        {serverError && <h1>500 Internal server error please try again</h1>}
+      </form>
+    </div>
   );
 }

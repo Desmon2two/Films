@@ -5,9 +5,9 @@ import type { RequestState } from "../types/RequestStateType";
 import changeUserData from "../api/changeUserData";
 import normalizeError from "../utils/normalizeError";
 
-export default function ChangeUserForm(user:User) {
+export default function ChangeUserForm(user: User) {
   const [userData, setUserData] = useState<ChangeUser>({
-    profilePicture: user.profilePicture,
+    profilePic: user.profilePic,
     username: user.username,
     displayName: user.displayName,
     bio: user.bio,
@@ -30,55 +30,61 @@ export default function ChangeUserForm(user:User) {
     }
   }
   return (
-    <form
-      className="change-user-data__form"
-      onSubmit={handleSubmit}
-    >
-      <input
-        type="text"
-        name="profilePicture"
-        value={userData.profilePicture ?? ""}
-        placeholder="New profile picture"
-        className="change-user-data__profile-picture"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="username"
-        value={userData.username}
-        placeholder="New username"
-        className="change-user-data__username"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="displayName"
-        value={userData.displayName}
-        placeholder="New display name"
-        className="change-user-data__display-name"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="bio"
-        value={userData.bio ?? ""}
-        placeholder="New bio"
-        className="change-user-data__bio"
-        onChange={handleChange}
-      />
-
-      <button
-        type="submit"
-        className="change-user-data__submit button"
-        disabled={requestState.status === "loading"}
+    <div className="change-user-data__page">
+      <form
+        className="change-user-data__form"
+        onSubmit={handleSubmit}
       >
-        Change
-      </button>
-      {requestState.status === "loading" && <p>Loading...</p>}
-      {requestState.status === "failure" && <p>{requestState.error.message}</p>}
-      {requestState.status === "success" && (
-        <p>User updated! Refresh the page</p>
-      )}
-    </form>
+        <input
+          type="text"
+          name="profilePic"
+          value={userData.profilePic ?? ""}
+          placeholder="New profile picture (URL)"
+          className="change-user-data__profile-picture"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="username"
+          value={userData.username}
+          placeholder="New username"
+          className="change-user-data__username"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="displayName"
+          value={userData.displayName}
+          placeholder="New display name"
+          className="change-user-data__display-name"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="bio"
+          value={userData.bio ?? ""}
+          placeholder="New bio"
+          className="change-user-data__bio"
+          onChange={handleChange}
+        />
+
+        <button
+          type="submit"
+          className="change-user-data__submit button"
+          disabled={requestState.status === "loading"}
+        >
+          Change
+        </button>
+        {requestState.status === "loading" && <p>Loading...</p>}
+        {requestState.status === "failure" && (
+          <p className="change-user-data__error-msg error-msg">
+            {requestState.error.message}
+          </p>
+        )}
+        {requestState.status === "success" && (
+          <p>User updated! Refresh the page</p>
+        )}
+      </form>
+    </div>
   );
 }

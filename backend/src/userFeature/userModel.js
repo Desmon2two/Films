@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profilePic: {
+    type: String,
+  },
   username: {
     type: String,
     required: true,
@@ -18,8 +21,8 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   bio: {
-    type: String
-  }
+    type: String,
+  },
 });
 const User = mongoose.model("User", userSchema);
 

@@ -28,12 +28,19 @@ export default function AuthMenu() {
         </>
       ) : (
         <div className="auth-menu__user-menu">
-          <button
-            type="button"
+          <div
+            className="auth-menu__profile-pic-container profile-pic-container"
             onClick={handleDropdown}
           >
-            Profile Pic
-          </button>
+            <img
+              src={
+                state.user.profilePic ??
+                "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-unknown-social-media-user-photo-default-avatar-profile-icon-vector-unknown-social-media-user-184816085.jpg"
+              }
+              alt="profile picture"
+              className="auth-menu__profile-pic profile-pic"
+            />
+          </div>
           {isDroppedDown && (
             <div className="auth-menu__dropdown">
               <Link

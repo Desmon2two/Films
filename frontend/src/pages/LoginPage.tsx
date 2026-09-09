@@ -50,34 +50,44 @@ export default function LoginPage() {
     }
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Email:</h1>
-      {error.email && <p>{error.email}</p>}
-      <input
-        type="email"
-        name="emailInput"
-        id=""
-        value={emailInput}
-        onChange={(e) => setEmailInput(e.target.value)}
-        onBlur={()=>handleBlur("email")}
-      />
-      <h1>Password:</h1>
-      {error.password && <p>{error.password}</p>}
-      <input
-        type="password"
-        name="passwordInput"
-        id=""
-        value={passwordInput}
-        onChange={(e) => setPasswordInput(e.target.value)}
-        onBlur={()=>handleBlur("password")}
-      />
-      <button
-        type="submit"
-        disabled={isSubmitting}
+    <div className="login-page">
+      <form
+        onSubmit={handleSubmit}
+        className="login-page__login-form"
       >
-        {isSubmitting ? "Logging in" : "Login"}
-      </button>
-      {error && <p>{error.other}</p>}
-    </form>
+        <p>Email:</p>
+        {error.email && <p className="login-form__error-msg error-msg">{error.email}</p>}
+        <input
+          type="email"
+          name="emailInput"
+          placeholder="Email:"
+          id=""
+          className="login-form__email-input"
+          value={emailInput}
+          onChange={(e) => setEmailInput(e.target.value)}
+          onBlur={() => handleBlur("email")}
+        />
+        <p>Password:</p>
+        {error.password && <p className="login-form__error-msg error-msg">{error.password}</p>}
+        <input
+          type="password"
+          name="passwordInput"
+          placeholder="Password:"
+          id=""
+          className="login-form__password-input"
+          value={passwordInput}
+          onChange={(e) => setPasswordInput(e.target.value)}
+          onBlur={() => handleBlur("password")}
+        />
+        <button
+          className="login-form__submit button"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Logging in" : "Login"}
+        </button>
+        {error && <p className="login-form__error-msg error-msg">{error.other}</p>}
+      </form>
+    </div> 
   );
 }
