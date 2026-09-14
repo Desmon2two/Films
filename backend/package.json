@@ -1,31 +1,31 @@
 {
-  "name": "gptfilmswebsite",
-  "version": "1.0.0",
-  "description": "\"The films website i am creating while learning with chatGPT mentor mode\"",
-  "keywords": [
-    "learning"
-  ],
-  "license": "ISC",
-  "author": "Alexa",
-  "type": "module",
-  "main": "server.js",
-  "scripts": {
-    "test": "node src/server.js",
-    "debug": "node --watch src/server.js"
-  },
-  "devDependencies": {
-    "@types/node": "^26.1.0"
-  },
-  "dependencies": {
-    "bcrypt": "^6.0.0",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.8.1"
-  },
-  "allowScripts": {
-    "bcrypt@6.0.0": true
-  }
+	"name": "gptfilmswebsite",
+	"version": "1.0.0",
+	"description": "\"The films website i am creating while learning with chatGPT mentor mode\"",
+	"keywords": [
+		"learning"
+	],
+	"license": "ISC",
+	"author": "Alexa",
+	"type": "module",
+	"main": "server.js",
+	"scripts": {
+		"start": "node src/server.js",
+		"dev": "node --watch src/server.js"
+	},
+	"devDependencies": {
+		"@types/node": "^26.1.0"
+	},
+	"dependencies": {
+		"bcrypt": "^6.0.0",
+		"cookie-parser": "^1.4.7",
+		"cors": "^2.8.6",
+		"dotenv": "^17.4.2",
+		"express": "^5.2.1",
+		"jsonwebtoken": "^9.0.3",
+		"mongoose": "^9.8.1"
+	},
+	"allowScripts": {
+		"bcrypt@6.0.0": true
+	}
 }

@@ -3,7 +3,7 @@ import cors from "cors"
 import express from "express";
 import cookieParser from "cookie-parser"
 const app = express();
-dotenv.config({ path: "../.env", debug: true });
+dotenv.config({ path: ".env", debug: true });
 const PORT = process.env.PORT || 3000;
 import connectDatabase from "./database/connectDatabase.js";
 import authRoute from "./authFeature/authRouter.js";
