@@ -5,10 +5,12 @@ import { NotFoundError } from "../errors/notFoundError.js";
 import { ValidationError } from "../errors/validationError.js";
 import { ForbiddenError } from "../errors/forbiddenError.js";
 import mapVideo from "../infrastructure/utils/videoMapper.js";
+import validateVideoData from "../videoFeature/validateVideoData.js";
 
 async function createVideo(videoData, userId) {
 	const user = await userService.findById(userId);
 	if (!user) throw new NotFoundError("User not found");
+	validateVideoData(videoData)
 	const result = await videoService.create(videoData, userId);
 	const video = mapVideo(result)
 	return video;

@@ -1,51 +1,41 @@
 import { ValidationError } from "../errors/validationError.js";
 
-function validateUserPatch(userData) {
-  const objectFields = Object.getOwnPropertyNames(userData);
-  if (objectFields.length === 0) throw new ValidationError("Nothing to update");
-  const allowedFields = ["username", "displayName", "profilePic", "bio"];
-  const isAllowed = objectFields.every((field) =>
-    allowedFields.includes(field),
-  );
-  if (!isAllowed) throw new ValidationError("Invalid profile field");
-  if (userData.username !== undefined) {
+function validateUserPatch(username, displayName, profilePic, bio) {
+  if (!username && !displayName && !profilePic && !bio) throw new ValidationError("No user fields to validate");
+  
+  if (username !== undefined) {
     if (
-      typeof userData.username !== "string" ||
-      userData.username.length < 3 ||
-      userData.username.length > 25
+      typeof username !== "string" ||
+      username.length < 3 ||
+      username.length > 25
     )
       throw new ValidationError("Invalid username");
   }
-  if (userData.displayName !== undefined) {
+  if (displayName !== undefined) {
     if (
-      typeof userData.displayName !== "string" ||
-      userData.displayName.length < 1 ||
-      userData.displayName.length > 25
+      typeof displayName !== "string" ||
+      displayName.length < 1 ||
+      displayName.length > 25
     )
       throw new ValidationError("Invalid displayName");
   }
-  if (userData.profilePic !== undefined) {
+  if (profilePic !== undefined) {
     if (
-      typeof userData.profilePic !== "string" ||
-      userData.profilePic.length < 1
+      typeof profilePic !== "string" ||
+      profilePic.length < 1
     )
       throw new ValidationError("Invalid profile picture");
   }
-  if (userData.bio !== undefined) {
-    if (typeof userData.bio !== "string" || userData.bio.length > 250)
+  if (bio !== undefined) {
+    if (typeof bio !== "string" || bio.length > 250)
       throw new ValidationError("Invalid bio");
   }
   return;
 }
-function validateCredentialsPatch(userData) {
-  const objectFields = Object.getOwnPropertyNames(userData);
-  if (objectFields.length === 0) throw new ValidationError("Nothing to update");
-  const allowedFields = ["email", "password"];
-  const isAllowed = objectFields.every((field) =>
-    allowedFields.includes(field),
-  );
-  if (!isAllowed) throw new ValidationError("Invalid profile field");
-  const { email, password } = userData;
+function validateCredentialsPatch({ email, password }) {
+if (!email && !password) {
+  throw new ValidationError("No credential to validate")
+}
   if (email !== undefined) {
     if (
       typeof email !== "string" ||

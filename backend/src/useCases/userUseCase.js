@@ -10,8 +10,8 @@ import { ValidationError } from "../errors/validationError.js";
 import userValidation from "../userFeature/userValidation.js";
 
 async function registerUser(email, password, username) {
-  await userValidation.validateCredentialsPatch({ email, password });
-  await userValidation.validateUserPatch({ username });
+  userValidation.validateCredentialsPatch({ email, password });
+  userValidation.validateUserPatch( username );
   const existsByEmail = await userService.findByEmail(email);
   const existsByUsername = await userService.findByUsername(username);
   if (existsByEmail || existsByUsername)
