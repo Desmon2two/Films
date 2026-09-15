@@ -100,7 +100,8 @@ async function patchUserEmail(userId, password, email) {
   return;
 }
 async function patchUser(userId, userData) {
-  userValidation.validateUserPatch(userData);
+  const {username, displayName, profilePic, bio} = userData;
+  userValidation.validateUserPatch(username, displayName, profilePic, bio);
   const user = await userService.patchOne(userId, userData);
   if (!user) throw new NotFoundError("User not found");
   return {
