@@ -81,6 +81,7 @@ async function getCurrentUser(req, res, next) {
 }
 async function patchUser(req, res, next) {
 	try {
+    console.log("BODY:", req.body)
 		const { userId } = req.user;
 		const userData = req.body;
 		const result = await userUseCase.patchUser(userId, userData);
