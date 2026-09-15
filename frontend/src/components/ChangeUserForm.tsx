@@ -5,7 +5,7 @@ import type { RequestState } from "../types/RequestStateType";
 import changeUserData from "../api/changeUserData";
 import normalizeError from "../utils/normalizeError";
 
-export default function ChangeUserForm(user: User) {
+export default function ChangeUserForm({ user }: { user: User }) {
 	const [userData, setUserData] = useState<ChangeUser>({
 		profilePic: user.profilePic,
 		username: user.username,

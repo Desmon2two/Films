@@ -49,12 +49,14 @@ export async function uploadVideo({
 
   const data = await response.json();
   if (!response.ok) throw new ApiError(response.status, data.message);
-
+  
   return data;
 }
 export async function deleteVideo(id: string): Promise<void> {
-  await fetch(import.meta.env.VITE_SERVER_URL + `/videos/${id}`, {
+  const response = await fetch(import.meta.env.VITE_SERVER_URL + `/videos/${id}`, {
     method: "DELETE",
     credentials: "include",
   });
+  const data = await response.json();
+  if (!response.ok) throw new ApiError(response.status, data.message);
 }

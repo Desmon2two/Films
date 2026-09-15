@@ -46,19 +46,20 @@ export default function RegisterPage() {
 		setSubmitionStatus({ status: "submitting" });
 		try {
 			await register(email, password, username);
-		} catch (error: any) {
+		} catch (error) {
+      const err = normalizeError(error)
 			setSubmitionStatus({
 				status: "failure",
 				error: {
-					message: normalizeError(error).message,
-					status: error.status,
-					name: error.name,
+					message: err.message,
+					status: err.status,
+					name: err.name,
 				},
 			});
 			setServerError({
-				status: Number(error.status),
-				message: error.message,
-				name: error.name,
+				status: Number(err.status),
+				message: err.message,
+				name: err.name,
 			});
 		}
 	}

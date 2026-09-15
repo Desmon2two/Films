@@ -1,7 +1,6 @@
 import type { VideoCardProps } from "../types/VIdeoCardPropsType";
 
 export default function VideoCard({
-  id,
   coverURL,
   title,
   description,
