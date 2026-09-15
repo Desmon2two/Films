@@ -9,18 +9,18 @@ import validateUsername from "../utils/validateUsername";
 import normalizeError from "../utils/normalizeError";
 
 export default function RegisterPage() {
-  const [submitionStatus, setSubmitionStatus] = useState<OperationStatus>({
-    status: "idle",
-  });
-  const [email, setEmail] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [validationError, setValidationError] =
-    useState<RegisterValidationErrors | null>(null);
-  const [serverError, setServerError] = useState<ApiError | null>(null);
-  const { register } = useAuth();
-  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+	const [submitionStatus, setSubmitionStatus] = useState<OperationStatus>({
+		status: "idle",
+	});
+	const [email, setEmail] = useState<string>("");
+	const [username, setUsername] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [confirmPassword, setConfirmPassword] = useState<string>("");
+	const [validationError, setValidationError] =
+		useState<RegisterValidationErrors | null>(null);
+	const [serverError, setServerError] = useState<ApiError | null>(null);
+	const { register } = useAuth();
+	async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
 		event.preventDefault();
 		setServerError(null);
 
@@ -47,7 +47,7 @@ export default function RegisterPage() {
 		try {
 			await register(email, password, username);
 		} catch (error) {
-      const err = normalizeError(error)
+			const err = normalizeError(error);
 			setSubmitionStatus({
 				status: "failure",
 				error: {
@@ -57,149 +57,163 @@ export default function RegisterPage() {
 				},
 			});
 			setServerError({
-				status: Number(err.status),
+				status: err.status,
 				message: err.message,
 				name: err.name,
 			});
 		}
 	}
-  function handleBlur(type: string) {
-    if (type === "email") {
-      const err = validateEmail(email);
+	function handleBlur(type: string) {
+		if (type === "email") {
+			const err = validateEmail(email);
 
-      setValidationError((previous) => {
-        if (err) {
-          return {
-            ...previous,
-            email: err,
-          };
-        }
+			setValidationError((previous) => {
+				if (err) {
+					return {
+						...previous,
+						email: err,
+					};
+				}
 
-        if (!previous) return null;
+				if (!previous) return null;
 
-        const newErrors = { ...previous };
-        delete newErrors.email;
+				const newErrors = { ...previous };
+				delete newErrors.email;
 
-        return Object.keys(newErrors).length > 0 ? newErrors : null;
-      });
-    }
-    if (type === "password") {
-      const err = validatePassword(password);
+				return Object.keys(newErrors).length > 0 ? newErrors : null;
+			});
+		}
+		if (type === "password") {
+			const err = validatePassword(password);
 
-      setValidationError((previous) => {
-        if (err) {
-          return {
-            ...previous,
-            password: err,
-          };
-        }
+			setValidationError((previous) => {
+				if (err) {
+					return {
+						...previous,
+						password: err,
+					};
+				}
 
-        if (!previous) return null;
+				if (!previous) return null;
 
-        const newErrors = { ...previous };
-        delete newErrors.password;
+				const newErrors = { ...previous };
+				delete newErrors.password;
 
-        return Object.keys(newErrors).length > 0 ? newErrors : null;
-      });
-    }
-    if (type === "username") {
-      const err = validateUsername(username);
+				return Object.keys(newErrors).length > 0 ? newErrors : null;
+			});
+		}
+		if (type === "username") {
+			const err = validateUsername(username);
 
-      setValidationError((previous) => {
-        if (err) {
-          return {
-            ...previous,
-            username: err,
-          };
-        }
+			setValidationError((previous) => {
+				if (err) {
+					return {
+						...previous,
+						username: err,
+					};
+				}
 
-        if (!previous) return null;
+				if (!previous) return null;
 
-        const newErrors = { ...previous };
-        delete newErrors.username;
+				const newErrors = { ...previous };
+				delete newErrors.username;
 
-        return Object.keys(newErrors).length > 0 ? newErrors : null;
-      });
-    }
-    if (type === "confirmPassword") {
-      const err =
-        password !== confirmPassword ? "Passwords do not match" : null;
+				return Object.keys(newErrors).length > 0 ? newErrors : null;
+			});
+		}
+		if (type === "confirmPassword") {
+			const err =
+				password !== confirmPassword ? "Passwords do not match" : null;
 
-      setValidationError((previous) => {
-        if (err) {
-          return {
-            ...previous,
-            confirmPassword: err,
-          };
-        }
+			setValidationError((previous) => {
+				if (err) {
+					return {
+						...previous,
+						confirmPassword: err,
+					};
+				}
 
-        if (!previous) return null;
+				if (!previous) return null;
 
-        const newErrors = { ...previous };
-        delete newErrors.confirmPassword;
+				const newErrors = { ...previous };
+				delete newErrors.confirmPassword;
 
-        return Object.keys(newErrors).length > 0 ? newErrors : null;
-      });
-    }
-  }
-  return (
-    <div className="reg-page">
-      <form
-        onSubmit={handleSubmit}
-        className="reg-form"
-      >
-        <p>Email:</p>
-        <input
-          className="reg-form__email-input"
-          type="email"
-          name="emailInput"
-          id=""
-          onChange={(e) => setEmail(e.target.value)}
-          onBlur={() => handleBlur("email")}
-        />
-        {validationError?.email && <p className="reg-form__error-msg error-msg">{validationError.email}</p>}
-        <p>Username:</p>
-        <input
-          className="reg-form__username-input"
-          type="text"
-          name="usernameInput"
-          id=""
-          onChange={(e) => setUsername(e.target.value)}
-          onBlur={() => handleBlur("username")}
-        />
-        {validationError?.username && <p className="reg-form__error-msg error-msg">{validationError.username}</p>}
-        <p>Password:</p>
-        <input
-          className="reg-form__password-input"
-          type="password"
-          name=""
-          id="passwordInput"
-          onChange={(e) => setPassword(e.target.value)}
-          onBlur={() => handleBlur("password")}
-        />
-        {validationError?.password && <p className="reg-form__error-msg error-msg">{validationError.password}</p>}
-        <p>Confirm password:</p>
-        <input
-          className="reg-form__confirm-password-input"
-          type="password"
-          name=""
-          id="confirmPasswordInput"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          onBlur={() => handleBlur("confirmPassword")}
-        />
-        {validationError?.confirmPassword && (
-          <p className="reg-form__error-msg error-msg">{validationError.confirmPassword}</p>
-        )}
-        <button
-          className="reg-form__submit button"
-          type="submit"
-          disabled={submitionStatus.status === "submitting"}
-          style={{ height: 30 }}
-        >
-          Submit
-        </button>
-        {serverError && <h1>500 Internal server error please try again</h1>}
-      </form>
-    </div>
-  );
+				return Object.keys(newErrors).length > 0 ? newErrors : null;
+			});
+		}
+	}
+	return (
+		<div className="reg-page">
+			<form
+				onSubmit={handleSubmit}
+				className="reg-form"
+			>
+				<p>Email:</p>
+				<input
+					className="reg-form__email-input"
+					type="email"
+					name="emailInput"
+					id=""
+					onChange={(e) => setEmail(e.target.value)}
+					onBlur={() => handleBlur("email")}
+				/>
+				{validationError?.email && (
+					<p className="reg-form__error-msg error-msg">
+						{validationError.email}
+					</p>
+				)}
+				<p>Username:</p>
+				<input
+					className="reg-form__username-input"
+					type="text"
+					name="usernameInput"
+					id=""
+					onChange={(e) => setUsername(e.target.value)}
+					onBlur={() => handleBlur("username")}
+				/>
+				{validationError?.username && (
+					<p className="reg-form__error-msg error-msg">
+						{validationError.username}
+					</p>
+				)}
+				<p>Password:</p>
+				<input
+					className="reg-form__password-input"
+					type="password"
+					name=""
+					id="passwordInput"
+					onChange={(e) => setPassword(e.target.value)}
+					onBlur={() => handleBlur("password")}
+				/>
+				{validationError?.password && (
+					<p className="reg-form__error-msg error-msg">
+						{validationError.password}
+					</p>
+				)}
+				<p>Confirm password:</p>
+				<input
+					className="reg-form__confirm-password-input"
+					type="password"
+					name=""
+					id="confirmPasswordInput"
+					onChange={(e) => setConfirmPassword(e.target.value)}
+					onBlur={() => handleBlur("confirmPassword")}
+				/>
+				{validationError?.confirmPassword && (
+					<p className="reg-form__error-msg error-msg">
+						{validationError.confirmPassword}
+					</p>
+				)}
+				<button
+					className="reg-form__submit button"
+					type="submit"
+					disabled={submitionStatus.status === "submitting"}
+					style={{ height: 30 }}
+				>
+					Submit
+				</button>
+				{serverError && <h1>{serverError.message}</h1>}
+			</form>
+		</div>
+	);
 }
