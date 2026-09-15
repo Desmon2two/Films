@@ -9,6 +9,7 @@ export default function VideoList({ videos, onVideoClick }: VideoListProps) {
           {...video}
           key={video.id}
           onAction={() => onVideoClick(video.id)}
+          isSelected={false}
         />
       ))}
     </div>
