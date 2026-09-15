@@ -12,27 +12,27 @@ export default function LoginPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { logIn } = useAuth();
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const validated = validateCredentials(emailInput, passwordInput);
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const validated = validateCredentials(emailInput, passwordInput);
 
-    if (validated.email !== null || validated.password !== null) {
-      setError(validated);
-      return;
-    }
-    try {
-      setIsSubmitting(true);
-      await logIn(emailInput, passwordInput);
-    } catch (err) {
-      setError({
-        email: validated.email,
-        password: validated.password,
-        other: String(err),
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
+		if (validated.email !== null || validated.password !== null) {
+			setError(validated);
+			return;
+		}
+		try {
+			setIsSubmitting(true);
+			await logIn(emailInput, passwordInput);
+		} catch (err) {
+			setError({
+				email: validated.email,
+				password: validated.password,
+				other: String(err),
+			});
+		} finally {
+			setIsSubmitting(false);
+		}
+	}
   function handleBlur(field: "email" | "password") {
     const validated = validateCredentials(emailInput, passwordInput);
 

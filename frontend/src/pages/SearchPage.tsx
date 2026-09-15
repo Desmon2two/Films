@@ -17,10 +17,10 @@ export default function SearchPage() {
   if (requestState.status === "success") {
     return (
       <>
-        <VideoList
+        {/* <VideoList
           videos={requestState.data}
           onVideoClick={(id) => navigate(`/videos/${id}`)}
-        />
+        /> */}
       </>
     );
   }

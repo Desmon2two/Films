@@ -6,85 +6,85 @@ import changeUserData from "../api/changeUserData";
 import normalizeError from "../utils/normalizeError";
 
 export default function ChangeUserForm(user: User) {
-  const [userData, setUserData] = useState<ChangeUser>({
-    profilePic: user.profilePic,
-    username: user.username,
-    displayName: user.displayName,
-    bio: user.bio,
-  });
-  const [requestState, setRequestState] = useState<RequestState<User>>({
-    status: "idle",
-  });
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setUserData((prev) => ({ ...prev, [name]: value }));
-  }
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setRequestState({ status: "loading" });
-    try {
-      const result = await changeUserData(userData);
-      setRequestState({ status: "success", data: result });
-    } catch (error) {
-      setRequestState({ status: "failure", error: normalizeError(error) });
-    }
-  }
-  return (
-    <div className="change-user-data__page">
-      <form
-        className="change-user-data__form"
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="text"
-          name="profilePic"
-          value={userData.profilePic ?? ""}
-          placeholder="New profile picture (URL)"
-          className="change-user-data__profile-picture"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="username"
-          value={userData.username}
-          placeholder="New username"
-          className="change-user-data__username"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="displayName"
-          value={userData.displayName}
-          placeholder="New display name"
-          className="change-user-data__display-name"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="bio"
-          value={userData.bio ?? ""}
-          placeholder="New bio"
-          className="change-user-data__bio"
-          onChange={handleChange}
-        />
+	const [userData, setUserData] = useState<ChangeUser>({
+		profilePic: user.profilePic,
+		username: user.username,
+		displayName: user.displayName,
+		bio: user.bio,
+	});
+	const [requestState, setRequestState] = useState<RequestState<User>>({
+		status: "idle",
+	});
+	function handleChange(event: React.ChangeEvent<HTMLInputElement, Element>) {
+		const { name, value } = event.target;
+		setUserData((prev) => ({ ...prev, [name]: value }));
+	}
+	async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+		event.preventDefault();
+		setRequestState({ status: "loading" });
+		try {
+			const result = await changeUserData(userData);
+			setRequestState({ status: "success", data: result });
+		} catch (error) {
+			setRequestState({ status: "failure", error: normalizeError(error) });
+		}
+	}
+	return (
+		<div className="change-user-data__page">
+			<form
+				className="change-user-data__form"
+				onSubmit={handleSubmit}
+			>
+				<input
+					type="text"
+					name="profilePic"
+					value={userData.profilePic ?? ""}
+					placeholder="New profile picture (URL)"
+					className="change-user-data__profile-picture"
+					onChange={handleChange}
+				/>
+				<input
+					type="text"
+					name="username"
+					value={userData.username}
+					placeholder="New username"
+					className="change-user-data__username"
+					onChange={handleChange}
+				/>
+				<input
+					type="text"
+					name="displayName"
+					value={userData.displayName}
+					placeholder="New display name"
+					className="change-user-data__display-name"
+					onChange={handleChange}
+				/>
+				<input
+					type="text"
+					name="bio"
+					value={userData.bio ?? ""}
+					placeholder="New bio"
+					className="change-user-data__bio"
+					onChange={handleChange}
+				/>
 
-        <button
-          type="submit"
-          className="change-user-data__submit button"
-          disabled={requestState.status === "loading"}
-        >
-          Change
-        </button>
-        {requestState.status === "loading" && <p>Loading...</p>}
-        {requestState.status === "failure" && (
-          <p className="change-user-data__error-msg error-msg">
-            {requestState.error.message}
-          </p>
-        )}
-        {requestState.status === "success" && (
-          <p>User updated! Refresh the page</p>
-        )}
-      </form>
-    </div>
-  );
+				<button
+					type="submit"
+					className="change-user-data__submit button"
+					disabled={requestState.status === "loading"}
+				>
+					Change
+				</button>
+				{requestState.status === "loading" && <p>Loading...</p>}
+				{requestState.status === "failure" && (
+					<p className="change-user-data__error-msg error-msg">
+						{requestState.error.message}
+					</p>
+				)}
+				{requestState.status === "success" && (
+					<p>User updated! Refresh the page</p>
+				)}
+			</form>
+		</div>
+	);
 }

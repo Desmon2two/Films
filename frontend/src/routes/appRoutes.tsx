@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import VideoPage from "../pages/VideoPage";
-import LoginPage from "../pages/loginPage";
-import ProfilePage from "../pages/profilePage";
+import LoginPage from "../pages/LoginPage";
+import ProfilePage from "../pages/ProfilePage";
 import RegisterPage from "../pages/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestOnlyRoute from "./GuestOnlyRoute";

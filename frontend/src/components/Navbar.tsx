@@ -6,7 +6,7 @@ export default function Navbar() {
   const [query, setQuery] = useState("");
   const [isSearchActive, setIsSearchActive] = useState(false);
   const navigate = useNavigate();
-  function handleSubmit(event) {
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const encodedQuery = encodeURIComponent(query);
     navigate(`/search?q=${encodedQuery}`);

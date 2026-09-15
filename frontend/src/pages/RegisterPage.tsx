@@ -19,39 +19,49 @@ export default function RegisterPage() {
   const [validationError, setValidationError] =
     useState<RegisterValidationErrors | null>(null);
   const [serverError, setServerError] = useState<ApiError | null>(null);
-  const { register, state } = useAuth();
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setServerError(null);
+  const { register } = useAuth();
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+		event.preventDefault();
+		setServerError(null);
 
-    const errors: RegisterValidationErrors = {};
-    const emailError = validateEmail(email);
-    if (emailError) {
-      errors.email = emailError;
-    }
-    const usernameError = validateUsername(username);
-    if (usernameError) {
-      errors.username = usernameError;
-    }
-    const passwordError = validatePassword(password);
-    if (passwordError) {
-      errors.password = passwordError;
-    }
-    if (password !== confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-    const hasErrors = Object.keys(errors).length > 0;
-    setValidationError(hasErrors ? errors : null);
-    if (hasErrors) return;
-    setSubmitionStatus({ status: "submitting" });
-    try {
-      await register(email, password, username);
-    } catch (error: unknown) {
-      const err = normalizeError(error);
-      setSubmitionStatus({ status: "failure", error: err });
-      setServerError({ status: err.status, message: err.message });
-    }
-  }
+		const errors: RegisterValidationErrors = {};
+		const emailError = validateEmail(email);
+		if (emailError) {
+			errors.email = emailError;
+		}
+		const usernameError = validateUsername(username);
+		if (usernameError) {
+			errors.username = usernameError;
+		}
+		const passwordError = validatePassword(password);
+		if (passwordError) {
+			errors.password = passwordError;
+		}
+		if (password !== confirmPassword) {
+			errors.confirmPassword = "Passwords do not match";
+		}
+		const hasErrors = Object.keys(errors).length > 0;
+		setValidationError(hasErrors ? errors : null);
+		if (hasErrors) return;
+		setSubmitionStatus({ status: "submitting" });
+		try {
+			await register(email, password, username);
+		} catch (error: any) {
+			setSubmitionStatus({
+				status: "failure",
+				error: {
+					message: normalizeError(error).message,
+					status: error.status,
+					name: error.name,
+				},
+			});
+			setServerError({
+				status: Number(error.status),
+				message: error.message,
+				name: error.name,
+			});
+		}
+	}
   function handleBlur(type: string) {
     if (type === "email") {
       const err = validateEmail(email);
